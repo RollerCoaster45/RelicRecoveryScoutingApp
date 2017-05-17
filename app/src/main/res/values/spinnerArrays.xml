@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="beaconSpinnerItems">
+        <item>Pressed</item>
+        <item>Missed</item>
+        <item>Not Attempted</item>
+        <item>Wrong Color</item>
+    </string-array>
+    <string-array name="capBallSpinnerItems">
+        <item>Not Attempted</item>
+        <item>Low</item>
+        <item>High</item>
+        <item>Cap</item>
+        <item>Dropped</item>
+    </string-array>
+</resources>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:fillViewport="false">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/TeleopBeacons"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopBeacons" />
+            <TextView
+                android:id="@+id/TeleopMissedBeacons"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="0"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopBeaconLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopBeacons" />
+            <TextView
+                android:id="@+id/TeleopBeaconLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Teleop Beacons \n"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SubAutoParticles" />
+            <TextView
+                android:id="@+id/TeleopMissedBeaconLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:text="Teleop Beacons Missed"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopBeaconLabel"
+                app:layout_constraintTop_toBottomOf="@+id/SubAutoParticles" />
+
+            <TextView
+                android:id="@+id/AutoParticlesLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Auto Center \n"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toRightOf="parent" />
+            <TextView
+                android:id="@+id/AutoParticlesMissedLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Auto Center Missed"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toRightOf="@id/AutoParticlesLabel" />
+            <TextView
+                android:id="@+id/TeleopParticlesLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Teleop Center"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toRightOf="@id/AutoParticlesMissedLabel" />
+            <TextView
+                android:id="@+id/TeleopParticlesMissedLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Teleop Center Missed"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopParticlesLabel"
+                android:layout_marginLeft="0dp" />
+            <TextView
+                android:id="@+id/AutoParticles"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/AddAutoParticles"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintLeft_toRightOf="parent" />
+            <TextView
+                android:id="@+id/AutoParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/AddAutoParticles"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toRightOf="@id/AutoParticles" />
+            <TextView
+                android:id="@+id/TeleopParticles"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/AddAutoParticles"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toRightOf="@id/AutoParticlesMissed" />
+            <TextView
+                android:id="@+id/TeleopParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginTop="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/AddAutoParticles"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopParticles"
+                android:layout_marginLeft="0dp" />
+
+            <Button
+                android:id="@+id/AddAutoParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="add"
+                android:onClick="addAutoParticleMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddAutoParticles"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticlesLabel" />
+
+            <Button
+                android:id="@+id/AddAutoParticles"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="Add"
+                android:onClick="addAutoParticle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticlesLabel" />
+            <Button
+                android:id="@+id/AddTeleopParticles"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="add"
+                android:onClick="addTeleopParticle"
+                app:layout_constraintLeft_toRightOf="@+id/AddAutoParticlesMissed"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticlesLabel" />
+            <Button
+                android:id="@+id/AddTeleopParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="add"
+                android:onClick="addTeleopParticleMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopParticles"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticlesLabel" />
+            <Button
+                android:id="@+id/SubAutoParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subAutoParticleMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddAutoParticles"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticles" />
+
+            <Button
+                android:id="@+id/SubAutoParticles"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subAutoParticle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticles" />
+            <Button
+                android:id="@+id/SubTeleopParticles"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subTeleopParticle"
+                app:layout_constraintLeft_toRightOf="@+id/AddAutoParticlesMissed"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticles" />
+            <Button
+                android:id="@+id/SubTeleopParticlesMissed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subTeleopParticleMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopParticles"
+                app:layout_constraintTop_toBottomOf= "@+id/AutoParticles" />
+            <Button
+                android:id="@+id/AddTeleopBeacons"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="add"
+                android:onClick="addTeleopBeacon"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf= "@+id/TeleopBeaconLabel" />
+            <Button
+                android:id="@+id/AddTeleopBeaconsMisssed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="add"
+                android:onClick="addTeleopBeaconMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopBeacons"
+                app:layout_constraintTop_toBottomOf= "@+id/TeleopBeaconLabel" />
+            <Button
+                android:id="@+id/SubTeleopBeacons"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subTeleopBeacon"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf= "@+id/TeleopBeacons" />
+            <Button
+                android:id="@+id/SubTeleopBeaconsMissed"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="sub"
+                android:onClick="subTeleopBeaconMissed"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopBeacons"
+                app:layout_constraintTop_toBottomOf= "@+id/TeleopBeacons" />
+
+            <TextView
+            android:id="@+id/AutoBeacon1Label"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Auto Beacon 1"
+            app:layout_constraintLeft_toRightOf="@+id/TeleopMissedBeaconLabel"
+            app:layout_constraintTop_toBottomOf="@+id/SubTeleopParticles" />
+
+            <Spinner
+                android:id="@+id/AutoBeacon1Spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopMissedBeaconLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AutoBeacon1Label">
+
+            </Spinner>
+            <TextView
+                android:id="@+id/AutoBeacon2Label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:text="Auto Beacon 1"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopMissedBeaconLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AutoBeacon1Spinner" />
+
+            <Spinner
+                android:id="@+id/AutoBeacon2Spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopMissedBeaconLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AutoBeacon2Label">
+
+            </Spinner>
+            <TextView
+                android:id="@+id/CapBallLabel"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Cap Ball"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SubTeleopBeacons" />
+            <Spinner
+                android:id="@+id/CapBallSpinner"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CapBallLabel">
+
+            </Spinner>
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/FTAFailure"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="FTA Error"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchNumber"
+                />
+            <Button
+                android:id="@+id/Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="Reset"
+                android:onClick="reset"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf= "@+id/FTAFailure" />
+            <Button
+                android:id="@+id/Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="submit"
+                android:onClick="submitData"
+                app:layout_constraintLeft_toRightOf="@+id/Reset"
+                app:layout_constraintTop_toBottomOf= "@+id/FTAFailure" />
+
+            <EditText
+                android:id="@+id/teamNumber"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Team Number"
+                android:inputType="number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CapBallSpinner" />
+
+            <EditText
+                android:id="@+id/matchNumber"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Match Number"
+                android:inputType="number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/teamNumber" />
+        </android.support.constraint.ConstraintLayout>
+    </HorizontalScrollView>
+</ScrollView>
