@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="0dp"
@@ -13,18 +13,20 @@
         android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/TeleopBeacons"
-                android:layout_width="60dp"
+
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="0dp"
                 android:text="0"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopBeacons" />
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopBeacons"
+                />
             <TextView
                 android:id="@+id/TeleopMissedBeacons"
                 android:layout_width="60dp"
@@ -39,7 +41,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="Teleop Beacons \n"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/SubAutoParticles" />
@@ -48,7 +50,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="Teleop Beacons Missed"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopBeaconLabel"
                 app:layout_constraintTop_toBottomOf="@+id/SubAutoParticles" />
@@ -254,7 +256,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             android:text="Auto Beacon 1"
             app:layout_constraintLeft_toRightOf="@+id/TeleopMissedBeaconLabel"
             app:layout_constraintTop_toBottomOf="@+id/SubTeleopParticles" />
@@ -294,7 +296,7 @@
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:text="Cap Ball"
                 android:textAlignment="center"
                 app:layout_constraintLeft_toLeftOf="parent"
