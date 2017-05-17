@@ -20,7 +20,7 @@
                 android:id="@+id/TeleopBeacons"
 
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="0dp"
                 android:text="0"
@@ -59,11 +59,11 @@
                 android:id="@+id/AutoParticlesLabel"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="Auto Center \n"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toRightOf="parent" />
+                android:layout_marginTop="8dp"
+                android:text="Auto Center \n"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/AutoParticlesMissedLabel"
                 android:layout_width="60dp"
