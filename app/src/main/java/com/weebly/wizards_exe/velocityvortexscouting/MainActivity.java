@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.text.Editable;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,23 +45,51 @@ import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.readExcel
 public class MainActivity extends Activity
 {
     private int autoParticles, autoParticlesMissed, teleopParticles, teleopParticlesMissed, teleopBeacons, teleopBeaconsMissed;
-    private TextView autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed;
+    private TextView autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed, autoLabel, autoMissedLabel, teleopLabel, teleopMissedLabel, beaconLabel, beaconMissedLabel, beacon1Label, beacon2Label, capBallLabel;
     private EditText teamNumber, matchNumber;
-    DataLogger data;
+    private Button addAuto, subAuto, addAutoMissed, subAutoMissed, addTeleop, subTeleop, addTeleopMissed, subTeleopMissed, addBeacon, subBeacon, addBeaconMissed, subBeaconMissed, submit, reset;
     Spinner beacon1, beacon2, capBall;
     CheckBox FTAError;
+
+
+    DataLogger data;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         autoParticle = (TextView) findViewById(R.id.AutoParticles);
         autoParticleMissed = (TextView) findViewById(R.id.AutoParticlesMissed);
         teleopParticle = (TextView) findViewById(R.id.TeleopParticles);
         teleopParticleMissed = (TextView) findViewById(R.id.TeleopParticlesMissed);
         teleopBeacon = (TextView) findViewById(R.id.TeleopBeacons);
         teleopBeaconMissed = (TextView) findViewById(R.id.TeleopMissedBeacons);
+        autoLabel = (TextView) findViewById(R.id.AutoParticlesLabel);
+        autoMissedLabel = (TextView) findViewById(R.id.AutoParticlesMissedLabel);
+        teleopLabel = (TextView) findViewById(R.id.TeleopParticlesLabel);
+        teleopMissedLabel = (TextView) findViewById(R.id.TeleopParticlesMissedLabel);
+        beaconLabel = (TextView) findViewById(R.id.TeleopBeaconLabel);
+        beaconMissedLabel = (TextView) findViewById(R.id.TeleopMissedBeaconLabel);
+        beacon1Label = (TextView) findViewById(R.id.AutoBeacon1Label);
+        beacon2Label = (TextView) findViewById(R.id.AutoBeacon2Label);
+        capBallLabel = (TextView) findViewById(R.id.CapBallLabel);
 
+        addAuto = (Button) findViewById(R.id.AddAutoParticles);
+        subAuto = (Button) findViewById(R.id.SubAutoParticles);
+        addAutoMissed = (Button) findViewById(R.id.AddAutoParticlesMissed);
+        subAutoMissed = (Button) findViewById(R.id.SubAutoParticlesMissed);
+        addTeleop = (Button) findViewById(R.id.AddTeleopParticles);
+        subTeleop = (Button) findViewById(R.id.SubTeleopParticles);
+        addTeleopMissed = (Button) findViewById(R.id.AddTeleopParticlesMissed);
+        subTeleopMissed = (Button) findViewById(R.id.SubTeleopParticlesMissed);
+        addBeacon = (Button) findViewById(R.id.AddTeleopBeacons);
+        subBeacon = (Button) findViewById(R.id.SubTeleopBeacons);
+        addBeaconMissed = (Button) findViewById(R.id.AddTeleopBeaconsMisssed);
+        subBeaconMissed = (Button) findViewById(R.id.SubTeleopBeaconsMissed);
+        submit = (Button) findViewById(R.id.Submit);
+        reset = (Button) findViewById(R.id.Reset);
 
         beacon1 = (Spinner) findViewById(R.id.AutoBeacon1Spinner);
         beacon2 = (Spinner) findViewById(R.id.AutoBeacon2Spinner);
@@ -79,6 +108,29 @@ public class MainActivity extends Activity
         beacon2.setAdapter(beaconAdapter);
         capBall.setAdapter(capBallAdapter);
         FTAError = (CheckBox) findViewById(R.id.FTAFailure);
+        int width = (getResources().getDisplayMetrics().widthPixels);
+        ConstraintLayout.LayoutParams layout;
+        View[] quarterWidgets = {addAuto, subAuto, addAutoMissed, subAutoMissed, addTeleop, subTeleop, addTeleopMissed, subTeleopMissed, addBeacon, subBeacon, addBeaconMissed, subBeaconMissed, submit, reset,
+                autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed, autoLabel, autoMissedLabel, teleopLabel, teleopMissedLabel, beaconLabel, beaconMissedLabel};
+        View[] halfWidgets = {beacon1Label, beacon2Label, beacon1, beacon2};
+        View[] fullWidgets = {capBall, capBallLabel, FTAError, teamNumber, matchNumber};
+        for(View widget:quarterWidgets){
+            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
+            layout.width = width/4;
+            widget.setLayoutParams(layout);
+        }
+        for(View widget:halfWidgets){
+            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
+            layout.width = width/2;
+            widget.setLayoutParams(layout);
+
+        }
+        for(View widget:fullWidgets){
+            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
+            layout.width = width;
+            widget.setLayoutParams(layout);
+
+        }
         reset();
     }
     public void submitData(View view){
