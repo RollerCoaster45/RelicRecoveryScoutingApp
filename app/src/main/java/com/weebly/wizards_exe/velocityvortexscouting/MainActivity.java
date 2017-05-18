@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageAvailable;
 import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageReadOnly;
-import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.readExcelFile;
 
 public class MainActivity extends Activity
 {
@@ -134,41 +133,31 @@ public class MainActivity extends Activity
         reset();
     }
     public void submitData(View view){
-        data = new DataLogger(teamNumber.getText().toString() + "_" + matchNumber.getText().toString()+".xls");
-        data.addField("Team Number");
+        data = new DataLogger("ScoutingData.xls");
+        data.resetAndNextRow(this);
+
         data.addField(teamNumber.getText().toString());
         data.newLine();
-        data.addField("Match Number");
         data.addField(matchNumber.getText().toString());
         data.newLine();
-        data.addField("Auto Beacon 1");
         data.addField(beacon1.getSelectedItem().toString());
         data.newLine();
-        data.addField("Auto Beacon 2");
         data.addField(beacon2.getSelectedItem().toString());
         data.newLine();
-        data.addField("Auto Particles");
         data.addField(autoParticles);
         data.newLine();
-        data.addField("Auto Particles Missed");
         data.addField(autoParticlesMissed);
         data.newLine();
-        data.addField("Teleop Particles");
         data.addField(teleopParticles);
         data.newLine();
-        data.addField("Teleop Particles Missed");
         data.addField(teleopParticlesMissed);
         data.newLine();
-        data.addField("Teleop Beacons");
         data.addField(teleopBeacons);
         data.newLine();
-        data.addField("Teleop Beacons Missed");
         data.addField(teleopBeaconsMissed);
         data.newLine();
-        data.addField("Cap Ball");
         data.addField(capBall.getSelectedItem().toString());
         data.newLine();
-        data.addField("FTA Error");
         data.addField(FTAError.isChecked());
         data.saveDataLogger(this);
         reset();
