@@ -108,7 +108,7 @@ public class MainActivity extends Activity
         beacon2.setAdapter(beaconAdapter);
         capBall.setAdapter(capBallAdapter);
         FTAError = (CheckBox) findViewById(R.id.FTAFailure);
-        int width = (getResources().getDisplayMetrics().widthPixels);
+        int width = (getResources().getDisplayMetrics().widthPixels)-32;
         ConstraintLayout.LayoutParams layout;
         View[] quarterWidgets = {addAuto, subAuto, addAutoMissed, subAutoMissed, addTeleop, subTeleop, addTeleopMissed, subTeleopMissed, addBeacon, subBeacon, addBeaconMissed, subBeaconMissed, submit, reset,
                 autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed, autoLabel, autoMissedLabel, teleopLabel, teleopMissedLabel, beaconLabel, beaconMissedLabel};
