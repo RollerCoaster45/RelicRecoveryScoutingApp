@@ -114,9 +114,14 @@ public class DataLogger {
         column++;
     }
     public void newLine() {
-        row++;
-        column = 0;
-        currentRow = currentSheet.getRow(row);
+        try{
+            row++;
+            column = 0;
+            currentRow = currentSheet.getRow(row);
+        }catch(Exception e){
+            addNewLine();
+        }
+
     }
     private void addNewLine(){
         row++;
@@ -159,21 +164,27 @@ public class DataLogger {
     private void setupSpreadsheet(){
         this.addField("Team Number");
         this.addNewLine();
-        this.addField("Team Name");
+        this.addField("Match Number");
+        this.addNewLine();
+        this.addField("Auto Beacon 1");
+        this.addNewLine();
+        this.addField("Auto Beacon 1");
         this.addNewLine();
         this.addField("Auto Particles");
+        this.addNewLine();
+        this.addField("Auto Particles Missed");
         this.addNewLine();
         this.addField("Teleop Particles");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("Teleop Particles Missed");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("Teleop Beacons");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("Teleop Beacons Missed");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("Cap Ball");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("FTA Error");
         this.addNewLine();
 
     }

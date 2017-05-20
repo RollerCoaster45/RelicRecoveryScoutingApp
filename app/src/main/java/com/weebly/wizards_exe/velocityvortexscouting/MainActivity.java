@@ -19,7 +19,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
@@ -133,34 +135,53 @@ public class MainActivity extends Activity
         reset();
     }
     public void submitData(View view){
-        data = new DataLogger("ScoutingData.xls");
-        data.resetAndNextRow(this);
+        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
+            data = new DataLogger("ScoutingData.xls");
+            data.resetAndNextRow(this);
 
-        data.addField(teamNumber.getText().toString());
-        data.newLine();
-        data.addField(matchNumber.getText().toString());
-        data.newLine();
-        data.addField(beacon1.getSelectedItem().toString());
-        data.newLine();
-        data.addField(beacon2.getSelectedItem().toString());
-        data.newLine();
-        data.addField(autoParticles);
-        data.newLine();
-        data.addField(autoParticlesMissed);
-        data.newLine();
-        data.addField(teleopParticles);
-        data.newLine();
-        data.addField(teleopParticlesMissed);
-        data.newLine();
-        data.addField(teleopBeacons);
-        data.newLine();
-        data.addField(teleopBeaconsMissed);
-        data.newLine();
-        data.addField(capBall.getSelectedItem().toString());
-        data.newLine();
-        data.addField(FTAError.isChecked());
-        data.saveDataLogger(this);
-        reset();
+            data.addField(teamNumber.getText().toString());
+
+            data.newLine();
+            data.addField(matchNumber.getText().toString());
+
+            data.newLine();
+            data.addField(beacon1.getSelectedItem().toString());
+            data.newLine();
+            data.addField(beacon2.getSelectedItem().toString());
+            data.newLine();
+            data.addField(autoParticles);
+            data.newLine();
+            data.addField(autoParticlesMissed);
+            data.newLine();
+            data.addField(teleopParticles);
+            data.newLine();
+            data.addField(teleopParticlesMissed);
+            data.newLine();
+            data.addField(teleopBeacons);
+            data.newLine();
+            data.addField(teleopBeaconsMissed);
+            data.newLine();
+            data.addField(capBall.getSelectedItem().toString());
+            data.newLine();
+            data.addField(FTAError.isChecked());
+            data.saveDataLogger(this);
+            reset();
+
+        }else{
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Team Number or Match Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+
     }
     public void reset(View view){
         reset();
