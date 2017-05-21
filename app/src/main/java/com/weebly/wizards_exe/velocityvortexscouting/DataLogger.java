@@ -168,7 +168,7 @@ public class DataLogger {
         this.addNewLine();
         this.addField("Auto Beacon 1");
         this.addNewLine();
-        this.addField("Auto Beacon 1");
+        this.addField("Auto Beacon 2");
         this.addNewLine();
         this.addField("Auto Particles");
         this.addNewLine();
