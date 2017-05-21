@@ -19,7 +19,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
@@ -40,7 +42,6 @@ import android.widget.Toast;
 
 import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageAvailable;
 import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageReadOnly;
-import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.readExcelFile;
 
 public class MainActivity extends Activity
 {
@@ -134,44 +135,53 @@ public class MainActivity extends Activity
         reset();
     }
     public void submitData(View view){
-        data = new DataLogger(teamNumber.getText().toString() + "_" + matchNumber.getText().toString()+".xls");
-        data.addField("Team Number");
-        data.addField(teamNumber.getText().toString());
-        data.newLine();
-        data.addField("Match Number");
-        data.addField(matchNumber.getText().toString());
-        data.newLine();
-        data.addField("Auto Beacon 1");
-        data.addField(beacon1.getSelectedItem().toString());
-        data.newLine();
-        data.addField("Auto Beacon 2");
-        data.addField(beacon2.getSelectedItem().toString());
-        data.newLine();
-        data.addField("Auto Particles");
-        data.addField(autoParticles);
-        data.newLine();
-        data.addField("Auto Particles Missed");
-        data.addField(autoParticlesMissed);
-        data.newLine();
-        data.addField("Teleop Particles");
-        data.addField(teleopParticles);
-        data.newLine();
-        data.addField("Teleop Particles Missed");
-        data.addField(teleopParticlesMissed);
-        data.newLine();
-        data.addField("Teleop Beacons");
-        data.addField(teleopBeacons);
-        data.newLine();
-        data.addField("Teleop Beacons Missed");
-        data.addField(teleopBeaconsMissed);
-        data.newLine();
-        data.addField("Cap Ball");
-        data.addField(capBall.getSelectedItem().toString());
-        data.newLine();
-        data.addField("FTA Error");
-        data.addField(FTAError.isChecked());
-        data.saveDataLogger(this);
-        reset();
+        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
+            data = new DataLogger("ScoutingData.xls");
+            data.resetAndNextRow(this);
+
+            data.addField(teamNumber.getText().toString());
+
+            data.newLine();
+            data.addField(matchNumber.getText().toString());
+
+            data.newLine();
+            data.addField(beacon1.getSelectedItem().toString());
+            data.newLine();
+            data.addField(beacon2.getSelectedItem().toString());
+            data.newLine();
+            data.addField(autoParticles);
+            data.newLine();
+            data.addField(autoParticlesMissed);
+            data.newLine();
+            data.addField(teleopParticles);
+            data.newLine();
+            data.addField(teleopParticlesMissed);
+            data.newLine();
+            data.addField(teleopBeacons);
+            data.newLine();
+            data.addField(teleopBeaconsMissed);
+            data.newLine();
+            data.addField(capBall.getSelectedItem().toString());
+            data.newLine();
+            data.addField(FTAError.isChecked());
+            data.saveDataLogger(this);
+            reset();
+
+        }else{
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Team Number or Match Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
+
     }
     public void reset(View view){
         reset();

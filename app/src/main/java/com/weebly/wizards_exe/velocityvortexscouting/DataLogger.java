@@ -35,6 +35,7 @@ public class DataLogger {
     private Row currentRow;
     private int column;
     private Sheet currentSheet;
+    private int lastColumnNumber;
     Workbook wb;
     static String TAG = "ExelLog";
 
@@ -45,6 +46,9 @@ public class DataLogger {
         if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
             Log.e(TAG, "Storage not available or read only");
         }
+
+    }
+    public void createNewWorkbook(){
         //New Workbook
         wb = new HSSFWorkbook();
         currentSheet = wb.createSheet("Sheet1");
@@ -75,41 +79,51 @@ public class DataLogger {
         }
     }
     public void addField(String obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(Double obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(boolean obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(Calendar obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(Date obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(RichTextString obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void addField(int obj){
-        Cell c = currentRow.createCell(column);
+        Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
     }
     public void newLine() {
+        try{
+            row++;
+            column = 0;
+            currentRow = currentSheet.getRow(row);
+        }catch(Exception e){
+            addNewLine();
+        }
+
+    }
+    private void addNewLine(){
         row++;
         column = 0;
         currentRow = currentSheet.createRow(row);
@@ -129,44 +143,71 @@ public class DataLogger {
         }
         return false;
     }
-    public static String readExcelFile(Context context, String filename) {
+    public void resetAndNextRow(Context context){
+        readExcelFile(context);
+
+        currentSheet = wb.getSheetAt(0);
+        lastColumnNumber = 0;
+        currentRow = currentSheet.getRow(0);
+        column = 0;
+        int columnFinal = currentRow.getLastCellNum();
+        if(columnFinal == - 1){
+            setupSpreadsheet();
+            currentRow = currentSheet.getRow(0);
+        }
+        columnFinal = currentRow.getLastCellNum();
+        lastColumnNumber = columnFinal;
+        currentRow = currentSheet.getRow(0);
+        row = 0;
+
+    }
+    private void setupSpreadsheet(){
+        this.addField("Team Number");
+        this.addNewLine();
+        this.addField("Match Number");
+        this.addNewLine();
+        this.addField("Auto Beacon 1");
+        this.addNewLine();
+        this.addField("Auto Beacon 2");
+        this.addNewLine();
+        this.addField("Auto Particles");
+        this.addNewLine();
+        this.addField("Auto Particles Missed");
+        this.addNewLine();
+        this.addField("Teleop Particles");
+        this.addNewLine();
+        this.addField("Teleop Particles Missed");
+        this.addNewLine();
+        this.addField("Teleop Beacons");
+        this.addNewLine();
+        this.addField("Teleop Beacons Missed");
+        this.addNewLine();
+        this.addField("Cap Ball");
+        this.addNewLine();
+        this.addField("FTA Error");
+        this.addNewLine();
+
+    }
+    private void readExcelFile(Context context) {
 
         if (!isExternalStorageAvailable() || isExternalStorageReadOnly())
         {
-            return "FAKE";
+            return;
         }
-        String returnString = "";
         try{
             // Creating Input Stream
-            File file = new File(context.getExternalFilesDir(null), filename);
+            File file = new File(context.getExternalFilesDir(null), name);
             FileInputStream myInput = new FileInputStream(file);
-
             // Create a POIFSFileSystem object
             POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
 
             // Create a workbook using the File System
-            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+           wb = new HSSFWorkbook(myFileSystem);
 
-            // Get the first sheet from workbook
-            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
-
-            /** We now need something to iterate through the cells.**/
-            Iterator rowIter = mySheet.rowIterator();
+        }catch (Exception e){
+            createNewWorkbook();
+        }
 
 
-            while(rowIter.hasNext()){
-                HSSFRow myRow = (HSSFRow) rowIter.next();
-                Iterator cellIter = myRow.cellIterator();
-                while(cellIter.hasNext()){
-                    HSSFCell myCell = (HSSFCell) cellIter.next();
-
-                    returnString+=("Cell Value: " +  myCell.toString());
-
-                }
-            }
-        }catch (Exception e){e.printStackTrace();
-            returnString = e.toString();}
-
-        return returnString;
     }
 }
