@@ -193,7 +193,71 @@
                 android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphNumber"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel" />
+            <TextView
+                android:id="@+id/CipherLabel"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Ciphers Done"
+                app:layout_constraintLeft_toLeftOf="@+id/TeleopGlyphLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp"
+                />
 
+            <SeekBar
+                android:id="@+id/CipherSeekBar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:max="2"
+                android:progress="0"
+                app:layout_constraintLeft_toRightOf="@+id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph" />
+            <TextView
+                android:id="@+id/EndGameLabel"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="End Game"
+                app:layout_constraintLeft_toLeftOf="@+id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/CipherLabel"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:id="@+id/Relic1Label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Relic 1"
+                app:layout_constraintLeft_toLeftOf="@+id/EndGameLabel"
+                app:layout_constraintTop_toBottomOf="@+id/EndGameLabel"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:id="@+id/Relic2Label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Relic 2"
+                app:layout_constraintLeft_toRightOf="@+id/Relic1Label"
+                app:layout_constraintTop_toBottomOf="@+id/EndGameLabel"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                />
+            <Spinner
+                android:id="@+id/Relic1Spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/Relic1Label"
+                app:layout_constraintTop_toBottomOf="@+id/Relic1Label" />
+            />
+            <Spinner
+                android:id="@+id/Relic2Spinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/Relic2Label"
+                app:layout_constraintTop_toBottomOf="@+id/Relic2Label" />
+            />
         </android.support.constraint.ConstraintLayout>
     </HorizontalScrollView>
 </ScrollView>
