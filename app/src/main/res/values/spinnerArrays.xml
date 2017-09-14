@@ -13,4 +13,18 @@
         <item>Cap</item>
         <item>Dropped</item>
     </string-array>
+    <string-array name="relicSpinnerItems">
+        <item>Not Attempted</item>
+        <item>Attempted Fail</item>
+        <item>Zone 1</item>
+        <item>Zone 2</item>
+        <item>Zone 3</item>
+    </string-array>
+    <string-array name="jewelSpinnerItems">
+        <item>Not Attempted</item>
+        <item>Wrong Color</item>
+        <item>Right Color</item>
+        <item>Both pushed</item>
+        <item>Neither</item>
+    </string-array>
 </resources>

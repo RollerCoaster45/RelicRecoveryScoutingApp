@@ -107,7 +107,8 @@
                 android:layout_height="50dp"
                 android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
+                android:onClick="addAutoGlyph"/>
             <TextView
                 android:id="@+id/AutoGlyphsNumber"
                 android:layout_width="60dp"
@@ -140,7 +141,7 @@
                 android:id="@+id/AutoVuforiaGlyphCheckbox"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:text="Correct Glyph Inserted"
+                android:text="Vuforia Glyph Inserted"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 app:layout_constraintLeft_toLeftOf="@id/AutoParkCheckBox"
@@ -206,11 +207,19 @@
 
             <SeekBar
                 android:id="@+id/CipherSeekBar"
-                android:layout_width="120dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:max="2"
                 android:progress="0"
                 app:layout_constraintLeft_toRightOf="@+id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph" />
+
+            <TextView
+                android:id="@+id/CipherNumber"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                app:layout_constraintLeft_toRightOf="@+id/CipherSeekBar"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph" />
             <TextView
                 android:id="@+id/EndGameLabel"
@@ -258,6 +267,83 @@
                 app:layout_constraintLeft_toLeftOf="@+id/Relic2Label"
                 app:layout_constraintTop_toBottomOf="@+id/Relic2Label" />
             />
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/Relic1CheckBox"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Standing"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/Relic1Spinner"
+                app:layout_constraintTop_toBottomOf="@+id/Relic1Spinner"
+                />
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/Relic2CheckBox"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Standing"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/Relic2Spinner"
+                app:layout_constraintTop_toBottomOf="@+id/Relic2Spinner"
+                />
+            <TextView
+                android:id="@+id/ScoreLabel"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Score: "
+                app:layout_constraintLeft_toLeftOf="@+id/Relic1CheckBox"
+                app:layout_constraintTop_toBottomOf="@+id/Relic1CheckBox"
+                android:textSize="15dp"
+                android:layout_marginTop="20dp"
+                />
+            <TextView
+                android:id="@+id/Score"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                app:layout_constraintLeft_toRightOf="@+id/ScoreLabel"
+                app:layout_constraintTop_toBottomOf="@+id/Relic2CheckBox"
+                android:textSize="15dp"
+                android:layout_marginTop="20dp"
+                />
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/FTAError"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="FTA Error"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/ScoreLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ScoreLabel"
+                />
+            <EditText
+                android:id="@+id/AdditionalComments"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Additional Comments"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="@id/FTAError"
+                app:layout_constraintTop_toBottomOf="@id/FTAError"
+                />
+            <Button
+                android:id="@+id/Submit"
+                android:text="submit"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/AdditionalComments"
+                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                />
+            <Button
+                android:id="@+id/Reset"
+                android:text="Reset"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/Submit"
+                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                />
+
         </android.support.constraint.ConstraintLayout>
     </HorizontalScrollView>
 </ScrollView>

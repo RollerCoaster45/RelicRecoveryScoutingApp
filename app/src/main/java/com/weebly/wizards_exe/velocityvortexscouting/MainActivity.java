@@ -36,6 +36,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,13 +46,13 @@ import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExterna
 
 public class MainActivity extends Activity
 {
-    private int autoParticles, autoParticlesMissed, teleopParticles, teleopParticlesMissed, teleopBeacons, teleopBeaconsMissed;
-    private TextView autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed, autoLabel, autoMissedLabel, teleopLabel, teleopMissedLabel, beaconLabel, beaconMissedLabel, beacon1Label, beacon2Label, capBallLabel;
-    private EditText teamNumber, matchNumber;
-    private Button addAuto, subAuto, addAutoMissed, subAutoMissed, addTeleop, subTeleop, addTeleopMissed, subTeleopMissed, addBeacon, subBeacon, addBeaconMissed, subBeaconMissed, submit, reset;
-    Spinner beacon1, beacon2, capBall;
-    CheckBox FTAError;
-
+    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel;
+    private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
+    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing;
+    private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, submit, reset;
+    private SeekBar cipherSeekBar;
+    private EditText teamNumber, matchNumber, additionalInfo;
+    private double teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber;
 
     DataLogger data;
 
@@ -60,67 +61,62 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        autoGlyphs = (TextView) findViewById(R.id.AutoGlyphsNumber);
+        teleopGlyphs = (TextView) findViewById(R.id.TeleopGlyphNumber);
+        teleopCiphers = (TextView) findViewById(R.id.CipherNumber);
+        score = (TextView) findViewById(R.id.Score);
+        autonomousLabel = (TextView) findViewById(R.id.AutonomousLabel);
+        jewel1Label = (TextView) findViewById(R.id.Jewel1Label);
+        jewel2Label = (TextView) findViewById(R.id.Jewel2Label);
+        autoGlyphsLabel = (TextView) findViewById(R.id.AutoGlyphsLabel);
+        teleopLabel = (TextView) findViewById(R.id.TeleopLabel);
+        teleopGlyphsLabel = (TextView) findViewById(R.id.TeleopGlyphLabel);
+        cipherLabel = (TextView) findViewById(R.id.CipherLabel);
+        endGameLabel = (TextView) findViewById(R.id.EndGameLabel);
+        relic1Label = (TextView) findViewById(R.id.Relic1Label);
+        relic2Label = (TextView) findViewById(R.id.Relic2Label);
+        scoreLabel = (TextView) findViewById(R.id.ScoreLabel);
 
-        autoParticle = (TextView) findViewById(R.id.AutoParticles);
-        autoParticleMissed = (TextView) findViewById(R.id.AutoParticlesMissed);
-        teleopParticle = (TextView) findViewById(R.id.TeleopParticles);
-        teleopParticleMissed = (TextView) findViewById(R.id.TeleopParticlesMissed);
-        teleopBeacon = (TextView) findViewById(R.id.TeleopBeacons);
-        teleopBeaconMissed = (TextView) findViewById(R.id.TeleopMissedBeacons);
-        autoLabel = (TextView) findViewById(R.id.AutoParticlesLabel);
-        autoMissedLabel = (TextView) findViewById(R.id.AutoParticlesMissedLabel);
-        teleopLabel = (TextView) findViewById(R.id.TeleopParticlesLabel);
-        teleopMissedLabel = (TextView) findViewById(R.id.TeleopParticlesMissedLabel);
-        beaconLabel = (TextView) findViewById(R.id.TeleopBeaconLabel);
-        beaconMissedLabel = (TextView) findViewById(R.id.TeleopMissedBeaconLabel);
-        beacon1Label = (TextView) findViewById(R.id.AutoBeacon1Label);
-        beacon2Label = (TextView) findViewById(R.id.AutoBeacon2Label);
-        capBallLabel = (TextView) findViewById(R.id.CapBallLabel);
-
-        addAuto = (Button) findViewById(R.id.AddAutoParticles);
-        subAuto = (Button) findViewById(R.id.SubAutoParticles);
-        addAutoMissed = (Button) findViewById(R.id.AddAutoParticlesMissed);
-        subAutoMissed = (Button) findViewById(R.id.SubAutoParticlesMissed);
-        addTeleop = (Button) findViewById(R.id.AddTeleopParticles);
-        subTeleop = (Button) findViewById(R.id.SubTeleopParticles);
-        addTeleopMissed = (Button) findViewById(R.id.AddTeleopParticlesMissed);
-        subTeleopMissed = (Button) findViewById(R.id.SubTeleopParticlesMissed);
-        addBeacon = (Button) findViewById(R.id.AddTeleopBeacons);
-        subBeacon = (Button) findViewById(R.id.SubTeleopBeacons);
-        addBeaconMissed = (Button) findViewById(R.id.AddTeleopBeaconsMisssed);
-        subBeaconMissed = (Button) findViewById(R.id.SubTeleopBeaconsMissed);
+        addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
+        subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
+        addTeleopGlyph = (Button) findViewById(R.id.AddTeleopGlyph);
+        subTeleopGlyph = (Button) findViewById(R.id.SubTeleopGlyph);
         submit = (Button) findViewById(R.id.Submit);
         reset = (Button) findViewById(R.id.Reset);
 
-        beacon1 = (Spinner) findViewById(R.id.AutoBeacon1Spinner);
-        beacon2 = (Spinner) findViewById(R.id.AutoBeacon2Spinner);
-        capBall = (Spinner) findViewById(R.id.CapBallSpinner);
-        ArrayAdapter<CharSequence> beaconAdapter = ArrayAdapter.createFromResource(this,
-                R.array.beaconSpinnerItems, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> capBallAdapter = ArrayAdapter.createFromResource(this,
-                R.array.capBallSpinnerItems, android.R.layout.simple_spinner_item);
-        beaconAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        capBallAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        jewel1Spinner = (Spinner) findViewById(R.id.Jewel1Spinner);
+        jewel2Spinner = (Spinner) findViewById(R.id.Jewel2Spinner);
+        relic1Spinner = (Spinner) findViewById(R.id.Relic1Spinner);
+        relic2Spinner = (Spinner) findViewById(R.id.Relic2Spinner);
+        ArrayAdapter<CharSequence> relicAdapter = ArrayAdapter.createFromResource(this,
+                R.array.relicSpinnerItems, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> jewelAdapter = ArrayAdapter.createFromResource(this,
+                R.array.jewelSpinnerItems, android.R.layout.simple_spinner_item);
+        relicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        jewelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        jewel1Spinner.setAdapter(jewelAdapter);
+        jewel2Spinner.setAdapter(jewelAdapter);
+        relic1Spinner.setAdapter(relicAdapter);
+        relic2Spinner.setAdapter(relicAdapter);
 
         teamNumber = (EditText)findViewById(R.id.teamNumber);
         matchNumber = (EditText)findViewById(R.id.matchNumber);
-// Apply the adapter to the spinner
-        beacon1.setAdapter(beaconAdapter);
-        beacon2.setAdapter(beaconAdapter);
-        capBall.setAdapter(capBallAdapter);
-        FTAError = (CheckBox) findViewById(R.id.FTAFailure);
-        int width = (getResources().getDisplayMetrics().widthPixels)-32;
+
+        // Apply the adapter to the spinner
+        FTAError = (CheckBox) findViewById(R.id.FTAError);
+
+        int width = (getResources().getDisplayMetrics().widthPixels)-16;
+
         ConstraintLayout.LayoutParams layout;
-        View[] quarterWidgets = {addAuto, subAuto, addAutoMissed, subAutoMissed, addTeleop, subTeleop, addTeleopMissed, subTeleopMissed, addBeacon, subBeacon, addBeaconMissed, subBeaconMissed, submit, reset,
-                autoParticle, autoParticleMissed, teleopParticle, teleopParticleMissed, teleopBeacon, teleopBeaconMissed, autoLabel, autoMissedLabel, teleopLabel, teleopMissedLabel, beaconLabel, beaconMissedLabel};
-        View[] halfWidgets = {beacon1Label, beacon2Label, beacon1, beacon2};
-        View[] fullWidgets = {capBall, capBallLabel, FTAError, teamNumber, matchNumber};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers};
+        View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo};
+
         for(View widget:quarterWidgets){
-            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
-            layout.width = width/4;
-            widget.setLayoutParams(layout);
-        }
-        for(View widget:halfWidgets){
+            layout = widget.getLayoutParams();
+            /*layout.width = width/4;
+            widget.setLayoutParams(layout);*/
+        }/*for(View widget:halfWidgets){
             layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
             layout.width = width/2;
             widget.setLayoutParams(layout);
@@ -132,8 +128,38 @@ public class MainActivity extends Activity
             widget.setLayoutParams(layout);
 
         }
-        reset();
+        //reset();*/
+    }/*
+    public void addAutoGlyph(){
+        autoGlyphsNumber++;
     }
+    public void update(){
+        autoGlyphs.setText(autoGlyphsNumber+"");
+        teleopGlyphs.setText(teleopGlyphNumber+"");
+        cipherLabel.setText(ciphersDoneNumber+"");
+        score.setText(scoreNumber + "");
+
+    }
+    public void reset(){
+        autoGlyphsNumber = 0;
+        teleopGlyphNumber = 0;
+        ciphersDoneNumber = 0;
+        scoreNumber = 0;
+        jewel1Spinner.setSelection(0);
+        jewel2Spinner.setSelection(0);
+        relic1Spinner.setSelection(0);
+        relic2Spinner.setSelection(0);
+        //cipherSeekBar.setsel
+        autoParked.setChecked(false);
+        autoVuforia.setChecked(false);
+        relic1Standing.setChecked(false);
+        relic2Standing.setChecked(false);
+        teamNumber.setText("");
+        matchNumber.setText("");
+        additionalInfo.setText("");
+        update();
+    }*//*
+
     public void submitData(View view){
         if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
             data = new DataLogger("ScoutingData.xls");
@@ -154,7 +180,7 @@ public class MainActivity extends Activity
             data.addField(autoParticlesMissed);
             data.newLine();
             data.addField(teleopParticles);
-            data.newLine();
+             data.newLine();
             data.addField(teleopParticlesMissed);
             data.newLine();
             data.addField(teleopBeacons);
@@ -269,7 +295,7 @@ public class MainActivity extends Activity
         teleopBeaconsMissed--;
     }
     update();
-}
+}*/
 
 
 
