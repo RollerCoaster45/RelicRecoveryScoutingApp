@@ -126,7 +126,8 @@
                 android:layout_height="50dp"
                 android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsNumber"
-                app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
+                android:onClick="subAutoGlyph"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoParkCheckBox"
                 android:layout_width="240dp"
@@ -175,7 +176,8 @@
                 android:layout_height="50dp"
                 android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphLabel"
-                app:layout_constraintTop_toBottomOf="@+id/TeleopLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
+                android:onClick="addTeleopGlyphs"/>
             <TextView
                 android:id="@+id/TeleopGlyphNumber"
                 android:layout_width="60dp"
@@ -193,7 +195,9 @@
                 android:layout_height="50dp"
                 android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphNumber"
-                app:layout_constraintTop_toBottomOf="@+id/TeleopLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
+                android:onClick="subTeleopGlyphs"
+                />
             <TextView
                 android:id="@+id/CipherLabel"
                 android:layout_width="120dp"

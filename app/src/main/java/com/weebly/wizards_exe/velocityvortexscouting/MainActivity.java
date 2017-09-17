@@ -31,6 +31,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -52,7 +53,7 @@ public class MainActivity extends Activity
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, submit, reset;
     private SeekBar cipherSeekBar;
     private EditText teamNumber, matchNumber, additionalInfo;
-    private double teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber;
+    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber;
 
     DataLogger data;
 
@@ -99,24 +100,32 @@ public class MainActivity extends Activity
         relic1Spinner.setAdapter(relicAdapter);
         relic2Spinner.setAdapter(relicAdapter);
 
+
         teamNumber = (EditText)findViewById(R.id.teamNumber);
         matchNumber = (EditText)findViewById(R.id.matchNumber);
+        additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
 
         // Apply the adapter to the spinner
         FTAError = (CheckBox) findViewById(R.id.FTAError);
+        autoParked = (CheckBox) findViewById(R.id.AutoParkCheckBox);
+        relic1Standing = (CheckBox) findViewById(R.id.Relic1CheckBox);
+        relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
+        autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
+
+        cipherSeekBar = (SeekBar) findViewById(R.id.CipherSeekBar);
 
         int width = (getResources().getDisplayMetrics().widthPixels)-16;
 
-        ConstraintLayout.LayoutParams layout;
+        ViewGroup.LayoutParams layout;
         View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers};
         View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset};
         View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo};
 
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
-            /*layout.width = width/4;
-            widget.setLayoutParams(layout);*/
-        }/*for(View widget:halfWidgets){
+            layout.width = width/4;
+            widget.setLayoutParams(layout);
+        }for(View widget:halfWidgets){
             layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
             layout.width = width/2;
             widget.setLayoutParams(layout);
@@ -128,11 +137,13 @@ public class MainActivity extends Activity
             widget.setLayoutParams(layout);
 
         }
-        //reset();*/
-    }/*
-    public void addAutoGlyph(){
-        autoGlyphsNumber++;
+        reset();
     }
+    public void addAutoGlyph(View view){
+        autoGlyphsNumber++;
+        update();
+    }
+
     public void update(){
         autoGlyphs.setText(autoGlyphsNumber+"");
         teleopGlyphs.setText(teleopGlyphNumber+"");
@@ -158,7 +169,7 @@ public class MainActivity extends Activity
         matchNumber.setText("");
         additionalInfo.setText("");
         update();
-    }*//*
+    }/*
 
     public void submitData(View view){
         if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
