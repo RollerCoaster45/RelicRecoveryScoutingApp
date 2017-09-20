@@ -32,6 +32,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -49,7 +50,7 @@ public class MainActivity extends Activity
 {
     private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel;
     private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
-    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing;
+    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, submit, reset;
     private SeekBar cipherSeekBar;
     private EditText teamNumber, matchNumber, additionalInfo;
@@ -99,7 +100,50 @@ public class MainActivity extends Activity
         jewel2Spinner.setAdapter(jewelAdapter);
         relic1Spinner.setAdapter(relicAdapter);
         relic2Spinner.setAdapter(relicAdapter);
+        jewel1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                update();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        jewel2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                update();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        relic1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                update();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        relic2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                update();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         teamNumber = (EditText)findViewById(R.id.teamNumber);
         matchNumber = (EditText)findViewById(R.id.matchNumber);
@@ -111,15 +155,16 @@ public class MainActivity extends Activity
         relic1Standing = (CheckBox) findViewById(R.id.Relic1CheckBox);
         relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
         autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
+        balanced = (CheckBox) findViewById(R.id.BalancedPark);
 
         cipherSeekBar = (SeekBar) findViewById(R.id.CipherSeekBar);
 
-        int width = (getResources().getDisplayMetrics().widthPixels)-16;
+        int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
         View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers};
         View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced};
 
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
@@ -140,16 +185,121 @@ public class MainActivity extends Activity
         reset();
     }
     public void addAutoGlyph(View view){
-        autoGlyphsNumber++;
+        if(teleopGlyphNumber+autoGlyphsNumber<24){
+            autoGlyphsNumber++;
+            update();
+        }
+    }
+    public void subAutoGlyph(View view){
+        if(autoGlyphsNumber>0){
+            autoGlyphsNumber--;
+            update();
+        }
+    }
+    public void addTeleopGlyphs(View view){
+        if(teleopGlyphNumber+autoGlyphsNumber<24){
+            teleopGlyphNumber++;
+            update();
+        }
+
+    }
+    public void subTeleopGlyphs(View view){
+        if(teleopGlyphNumber>0){
+            teleopGlyphNumber--;
+            update();
+        }
+    }
+    public void autoParkClick(View view){
         update();
     }
-
+    public void autoVuforiaClick(View view){
+        update();
+    }
+    public void standing1Update(View view){
+        update();
+    }
+    public void standing2Update(View view){
+        update();
+    }
     public void update(){
+        scoreNumber = 0;
+        scoreNumber+=autoGlyphsNumber*15;
+        scoreNumber += teleopGlyphNumber*2;
+        if(autoParked.isChecked()){
+            scoreNumber += 10;
+        }
+        if(balanced.isChecked()){
+            scoreNumber += 20;
+        }
+        if(relic1Standing.isChecked()&&(relic1Spinner.getSelectedItem().toString().equals("Not Attempted")||relic1Spinner.getSelectedItem().toString().equals("Attempted Fail"))){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Can't stand without being in zone");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            relic1Standing.setChecked(false);
+        }else if(relic1Standing.isChecked()){
+            scoreNumber+=20;
+        }
+        if(relic2Standing.isChecked()&&(relic2Spinner.getSelectedItem().toString().equals("Not Attempted")||relic2Spinner.getSelectedItem().toString().equals("Attempted Fail"))){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Can't stand without being in zone");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            relic2Standing.setChecked(false);
+        }else if(relic2Standing.isChecked()){
+            scoreNumber+=20;
+        }
+        if(autoVuforia.isChecked()&&autoGlyphsNumber==0){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Vuforia not possible without glyph");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+            autoVuforia.setChecked(false);
+        }else if(autoVuforia.isChecked()){
+            scoreNumber += 30;
+        }
+        if(jewel1Spinner.getSelectedItem().toString().equals("Right Color")){
+            scoreNumber+=30;
+        }else if(jewel1Spinner.getSelectedItem().toString().equals("Wrong Color")){
+            scoreNumber-=30;
+        }
+        if(jewel2Spinner.getSelectedItem().toString().equals("Right Color")){
+            scoreNumber+=30;
+        }else if(jewel2Spinner.getSelectedItem().toString().equals("Wrong Color")){
+            scoreNumber-=30;
+        }
         autoGlyphs.setText(autoGlyphsNumber+"");
         teleopGlyphs.setText(teleopGlyphNumber+"");
-        cipherLabel.setText(ciphersDoneNumber+"");
+        teleopCiphers.setText(ciphersDoneNumber+"");
         score.setText(scoreNumber + "");
 
+    }
+    public void balanceUpdate(View view){
+        update();
     }
     public void reset(){
         autoGlyphsNumber = 0;
@@ -160,7 +310,6 @@ public class MainActivity extends Activity
         jewel2Spinner.setSelection(0);
         relic1Spinner.setSelection(0);
         relic2Spinner.setSelection(0);
-        //cipherSeekBar.setsel
         autoParked.setChecked(false);
         autoVuforia.setChecked(false);
         relic1Standing.setChecked(false);
