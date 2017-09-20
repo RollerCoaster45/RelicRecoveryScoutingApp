@@ -201,12 +201,89 @@
                 android:onClick="subTeleopGlyphs"
                 />
             <TextView
+                android:id="@+id/TeleopRowLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Rows"
+                app:layout_constraintLeft_toLeftOf="@+id/TeleopGlyphLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"/>
+
+            <Button
+                android:id="@+id/AddTeleopRows"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="+"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopRowLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                android:onClick="addTeleopRows"/>
+            <TextView
+                android:id="@+id/TeleopRowNumber"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopRows"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                />
+            <Button
+                android:id="@+id/SubTeleopRow"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="-"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopRowNumber"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                android:onClick="subTeleopRows"
+                />
+            <TextView
+                android:id="@+id/TeleopColumnLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Columns"
+                app:layout_constraintLeft_toLeftOf="@+id/TeleopRowLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"/>
+
+            <Button
+                android:id="@+id/AddTeleopColumns"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="+"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopColumnLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
+                android:onClick="addTeleopColumns"/>
+            <TextView
+                android:id="@+id/TeleopColumnNumber"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                app:layout_constraintLeft_toRightOf="@+id/AddTeleopColumns"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                />
+            <Button
+                android:id="@+id/SubTeleopColumn"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="-"
+                app:layout_constraintLeft_toRightOf="@+id/TeleopColumnNumber"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
+                android:onClick="subTeleopColumn"
+                />
+
+            <TextView
                 android:id="@+id/CipherLabel"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="Ciphers Done"
-                app:layout_constraintLeft_toLeftOf="@+id/TeleopGlyphLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
+                app:layout_constraintLeft_toLeftOf="@+id/TeleopColumnLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
                 android:layout_marginTop="0dp"
                 android:textSize="15dp"
                 />
@@ -218,7 +295,7 @@
                 android:max="2"
                 android:progress="0"
                 app:layout_constraintLeft_toRightOf="@+id/CipherLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph" />
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
 
             <TextView
                 android:id="@+id/CipherNumber"
@@ -226,7 +303,7 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 app:layout_constraintLeft_toRightOf="@+id/CipherSeekBar"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph" />
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
             <TextView
                 android:id="@+id/EndGameLabel"
                 android:layout_width="240dp"

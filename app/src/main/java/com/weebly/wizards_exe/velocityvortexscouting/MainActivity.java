@@ -48,13 +48,13 @@ import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExterna
 
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel;
+    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns;
     private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
-    private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, submit, reset;
+    private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
     private SeekBar cipherSeekBar;
     private EditText teamNumber, matchNumber, additionalInfo;
-    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber;
+    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber, teleopRowNumber, teleopColumnNumber;
 
     DataLogger data;
 
@@ -78,11 +78,19 @@ public class MainActivity extends Activity
         relic1Label = (TextView) findViewById(R.id.Relic1Label);
         relic2Label = (TextView) findViewById(R.id.Relic2Label);
         scoreLabel = (TextView) findViewById(R.id.ScoreLabel);
+        teleopRowLabel = (TextView) findViewById(R.id.TeleopRowLabel);
+        teleopRows = (TextView) findViewById(R.id.TeleopRowNumber);
+        teleopColumnLabel = (TextView) findViewById(R.id.TeleopColumnLabel);
+        teleopColumns = (TextView) findViewById(R.id.TeleopColumnNumber);
 
         addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
         subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
         addTeleopGlyph = (Button) findViewById(R.id.AddTeleopGlyph);
         subTeleopGlyph = (Button) findViewById(R.id.SubTeleopGlyph);
+        addTeleopRow = (Button) findViewById(R.id.AddTeleopRows);
+        subTeleopRow = (Button) findViewById(R.id.SubTeleopRow);
+        addTeleopColumn = (Button) findViewById(R.id.AddTeleopColumns);
+        subTeleopColumn = (Button) findViewById(R.id.SubTeleopColumn);
         submit = (Button) findViewById(R.id.Submit);
         reset = (Button) findViewById(R.id.Reset);
 
@@ -162,7 +170,7 @@ public class MainActivity extends Activity
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns};
         View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset};
         View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced};
 
@@ -171,13 +179,13 @@ public class MainActivity extends Activity
             layout.width = width/4;
             widget.setLayoutParams(layout);
         }for(View widget:halfWidgets){
-            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
+            layout = widget.getLayoutParams();
             layout.width = width/2;
             widget.setLayoutParams(layout);
 
         }
         for(View widget:fullWidgets){
-            layout = (ConstraintLayout.LayoutParams) widget.getLayoutParams();
+            layout = widget.getLayoutParams();
             layout.width = width;
             widget.setLayoutParams(layout);
 
@@ -246,7 +254,7 @@ public class MainActivity extends Activity
             alert11.show();
             relic1Standing.setChecked(false);
         }else if(relic1Standing.isChecked()){
-            scoreNumber+=20;
+            scoreNumber+=15;
         }
         if(relic2Standing.isChecked()&&(relic2Spinner.getSelectedItem().toString().equals("Not Attempted")||relic2Spinner.getSelectedItem().toString().equals("Attempted Fail"))){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -263,7 +271,7 @@ public class MainActivity extends Activity
             alert11.show();
             relic2Standing.setChecked(false);
         }else if(relic2Standing.isChecked()){
-            scoreNumber+=20;
+            scoreNumber+=15;
         }
         if(autoVuforia.isChecked()&&autoGlyphsNumber==0){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -310,6 +318,8 @@ public class MainActivity extends Activity
         teleopGlyphs.setText(teleopGlyphNumber+"");
         teleopCiphers.setText(ciphersDoneNumber+"");
         score.setText(scoreNumber + "");
+        teleopRows.setText(teleopRowNumber+"");
+        teleopColumns.setText(teleopColumnNumber+"");
 
     }
     public void balanceUpdate(View view){
@@ -320,6 +330,8 @@ public class MainActivity extends Activity
         teleopGlyphNumber = 0;
         ciphersDoneNumber = 0;
         scoreNumber = 0;
+        teleopColumnNumber = 0;
+        teleopRowNumber = 0;
         jewel1Spinner.setSelection(0);
         jewel2Spinner.setSelection(0);
         relic1Spinner.setSelection(0);
