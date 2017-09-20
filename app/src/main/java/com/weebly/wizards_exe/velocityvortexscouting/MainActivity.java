@@ -292,6 +292,20 @@ public class MainActivity extends Activity
         }else if(jewel2Spinner.getSelectedItem().toString().equals("Wrong Color")){
             scoreNumber-=30;
         }
+        if(relic1Spinner.getSelectedItem().toString().equals("Zone 1")){
+            scoreNumber+=10;
+        }else if(relic1Spinner.getSelectedItem().toString().equals("Zone 2")){
+            scoreNumber+=20;
+        }else if(relic1Spinner.getSelectedItem().toString().equals("Zone 3")){
+            scoreNumber+=40;
+        }
+        if(relic2Spinner.getSelectedItem().toString().equals("Zone 1")){
+            scoreNumber+=10;
+        }else if(relic2Spinner.getSelectedItem().toString().equals("Zone 2")){
+            scoreNumber+=20;
+        }else if(relic2Spinner.getSelectedItem().toString().equals("Zone 3")){
+            scoreNumber+=40;
+        }
         autoGlyphs.setText(autoGlyphsNumber+"");
         teleopGlyphs.setText(teleopGlyphNumber+"");
         teleopCiphers.setText(ciphersDoneNumber+"");
