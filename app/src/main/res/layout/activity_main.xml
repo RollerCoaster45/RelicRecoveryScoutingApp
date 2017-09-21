@@ -437,6 +437,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toRightOf="@id/Submit"
+                android:onClick="resetButtonPressed"
                 app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
                 />
 

@@ -166,6 +166,24 @@ public class MainActivity extends Activity
         balanced = (CheckBox) findViewById(R.id.BalancedPark);
 
         cipherSeekBar = (SeekBar) findViewById(R.id.CipherSeekBar);
+        cipherSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                ciphersDoneNumber=progress;
+                update();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
@@ -211,6 +229,10 @@ public class MainActivity extends Activity
         }
 
     }
+    public void resetButtonPressed(View view){
+
+        reset();
+    }
     public void subTeleopGlyphs(View view){
         if(teleopGlyphNumber>0){
             teleopGlyphNumber--;
@@ -233,6 +255,9 @@ public class MainActivity extends Activity
         scoreNumber = 0;
         scoreNumber+=autoGlyphsNumber*15;
         scoreNumber += teleopGlyphNumber*2;
+        scoreNumber += teleopRowNumber*10;
+        scoreNumber += teleopColumnNumber*20;
+        scoreNumber += ciphersDoneNumber * 30;
         if(autoParked.isChecked()){
             scoreNumber += 10;
         }
@@ -325,6 +350,31 @@ public class MainActivity extends Activity
     public void balanceUpdate(View view){
         update();
     }
+    public void addTeleopRows(View view){
+        if(teleopRowNumber<8){
+            teleopRowNumber++;
+            update();
+        }
+    }
+    public void subTeleopRows(View view){
+        if(teleopRowNumber>0){
+            teleopRowNumber--;
+            update();
+        }
+    }
+    public void addTeleopColumns(View view){
+        if(teleopColumnNumber<6){
+            teleopColumnNumber++;
+            update();
+        }
+
+    }
+    public void subTeleopColumn(View view){
+        if(teleopColumnNumber>0){
+            teleopColumnNumber--;
+            update();
+        }
+    }
     public void reset(){
         autoGlyphsNumber = 0;
         teleopGlyphNumber = 0;
@@ -343,6 +393,7 @@ public class MainActivity extends Activity
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
+        cipherSeekBar.setProgress(0);
         update();
     }/*
 
