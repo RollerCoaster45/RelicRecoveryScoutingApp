@@ -72,55 +72,45 @@ public class DataLogger {
         }
     }
     public void addField(String obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
 
     }
     public void addField(Double obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void addField(boolean obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void addField(Calendar obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void addField(Date obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void addField(RichTextString obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void addField(int obj){
-        Cell c = currentRow.createCell(column + lastColumnNumber);
+        Cell c = currentRow.createCell(column);
         c.setCellValue(obj);
         column++;
     }
     public void newLine() {
-        try{
-            row++;
-            column = 0;
-            currentRow = currentSheet.getRow(row);
-        }catch(Exception e){
-            addNewLine();
-        }
-
-    }
-    private void addNewLine(){
         row++;
-        column = 0;
-        currentRow = currentSheet.createRow(row);
+        this.currentRow = currentSheet.createRow(row);
+        column=0;
     }
     public static boolean isExternalStorageReadOnly() {
         String extStorageState = Environment.getExternalStorageState();
@@ -149,51 +139,32 @@ public class DataLogger {
             setupSpreadsheet();
             currentRow = currentSheet.getRow(0);
         }
-        columnFinal = currentRow.getLastCellNum();
-        lastColumnNumber = columnFinal;
-        currentRow = currentSheet.getRow(0);
-        row = 0;
+        row++;
+        row = this.currentSheet.getLastRowNum();
+        currentRow = currentSheet.createRow(row);
 
     }
     private void setupSpreadsheet(){
         this.addField("Team Number");
-        this.addNewLine();
         this.addField("Match Number");
-        this.addNewLine();
         this.addField("Jewel 1");
-        this.addNewLine();
         this.addField("Jewel 2");
-        this.addNewLine();
         this.addField("Auto Glyphs");
-        this.addNewLine();
         this.addField("Auto Parked");
-        this.addNewLine();
         this.addField("Auto Vuforia");
-        this.addNewLine();
         this.addField("Teleop Glyphs");
-        this.addNewLine();
         this.addField("Teleop Rows");
-        this.addNewLine();
         this.addField("Teleop Columns");
-        this.addNewLine();
         this.addField("Teleop Ciphers");
-        this.addNewLine();
         this.addField("Relic 1");
-        this.addNewLine();
         this.addField("Relic 1 Standing");
-        this.addNewLine();
         this.addField("Relic 2");
-        this.addNewLine();
         this.addField("Relic 2 Standing");
-        this.addNewLine();
         this.addField("Balanced");
-        this.addNewLine();
         this.addField("Score");
-        this.addNewLine();
         this.addField("FTA Error");
-        this.addNewLine();
         this.addField("Additional Comments");
-        this.addNewLine();
+        this.newLine();
 
     }
     private void readExcelFile(Context context) {

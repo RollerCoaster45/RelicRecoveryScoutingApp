@@ -246,62 +246,26 @@ public class MainActivity extends Activity
         if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
             data = new DataLogger("ScoutingData.xls");
             data.resetAndNextRow(this);
-
             data.addField(teamNumber.getText().toString());
-
-            data.newLine();
             data.addField(matchNumber.getText().toString());
-
-            data.newLine();
             data.addField(jewel1Spinner.getSelectedItem().toString());
-
-            data.newLine();
             data.addField(jewel2Spinner.getSelectedItem().toString());
-
-            data.newLine();
             data.addField(autoGlyphsNumber);
-
-            data.newLine();
             data.addField(autoParked.isChecked());
-
-            data.newLine();
             data.addField(autoVuforia.isChecked());
-
-            data.newLine();
             data.addField(teleopGlyphNumber);
-
-            data.newLine();
             data.addField(teleopRowNumber);
-
-            data.newLine();
             data.addField(teleopColumnNumber);
-
-            data.newLine();
             data.addField(ciphersDoneNumber);
-
-            data.newLine();
             data.addField(relic1Spinner.getSelectedItem().toString());
-
-            data.newLine();
             data.addField(relic1Standing.isChecked());
-
-            data.newLine();
             data.addField(relic2Spinner.getSelectedItem().toString());
-
-            data.newLine();
             data.addField(relic2Standing.isChecked());
-
-            data.newLine();
             data.addField(balanced.isChecked());
-
-            data.newLine();
             data.addField(scoreNumber);
-
-            data.newLine();
             data.addField(FTAError.isChecked());
-
-            data.newLine();
             data.addField(additionalInfo.getText().toString());
+            data.newLine();
             data.saveDataLogger(this);
             reset();
 
