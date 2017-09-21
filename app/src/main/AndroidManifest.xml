@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.weebly.wizards_exe.velocityvortexscouting">
+    package="com.weebly.wizards_exe.relicrecoveryscouting">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="RR Scouting"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.weebly.wizards_exe.relicrecoveryscouting.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,50 +1,20 @@
-package com.weebly.wizards_exe.velocityvortexscouting;
+package com.weebly.wizards_exe.relicrecoveryscouting;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.constraint.ConstraintLayout;
-import android.text.Editable;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageAvailable;
-import static com.weebly.wizards_exe.velocityvortexscouting.DataLogger.isExternalStorageReadOnly;
 
 public class MainActivity extends Activity
 {
@@ -55,8 +25,7 @@ public class MainActivity extends Activity
     private SeekBar cipherSeekBar;
     private EditText teamNumber, matchNumber, additionalInfo;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber, teleopRowNumber, teleopColumnNumber;
-
-    DataLogger data;
+    private DataLogger data;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -229,8 +198,127 @@ public class MainActivity extends Activity
         }
 
     }
+    public void submitButtonPressed(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you would like to submit?");
+        builder1.setCancelable(true);
+        builder1.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder1.setPositiveButton(
+                "Submit",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        submitData();
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
     public void resetButtonPressed(View view){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Are you sure you would like to reset?");
+        builder1.setCancelable(true);
+        builder1.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder1.setPositiveButton(
+                "Reset",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        reset();
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+    public void submitData(){
+        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
+            data = new DataLogger("ScoutingData.xls");
+            data.resetAndNextRow(this);
 
+            data.addField(teamNumber.getText().toString());
+
+            data.newLine();
+            data.addField(matchNumber.getText().toString());
+
+            data.newLine();
+            data.addField(jewel1Spinner.getSelectedItem().toString());
+
+            data.newLine();
+            data.addField(jewel2Spinner.getSelectedItem().toString());
+
+            data.newLine();
+            data.addField(autoGlyphsNumber);
+
+            data.newLine();
+            data.addField(autoParked.isChecked());
+
+            data.newLine();
+            data.addField(autoVuforia.isChecked());
+
+            data.newLine();
+            data.addField(teleopGlyphNumber);
+
+            data.newLine();
+            data.addField(teleopRowNumber);
+
+            data.newLine();
+            data.addField(teleopColumnNumber);
+
+            data.newLine();
+            data.addField(ciphersDoneNumber);
+
+            data.newLine();
+            data.addField(relic1Spinner.getSelectedItem().toString());
+
+            data.newLine();
+            data.addField(relic1Standing.isChecked());
+
+            data.newLine();
+            data.addField(relic2Spinner.getSelectedItem().toString());
+
+            data.newLine();
+            data.addField(relic2Standing.isChecked());
+
+            data.newLine();
+            data.addField(balanced.isChecked());
+
+            data.newLine();
+            data.addField(scoreNumber);
+
+            data.newLine();
+            data.addField(FTAError.isChecked());
+
+            data.newLine();
+            data.addField(additionalInfo.getText().toString());
+            data.saveDataLogger(this);
+            reset();
+
+        }else{
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Team Number or Match Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
         reset();
     }
     public void subTeleopGlyphs(View view){
@@ -275,6 +363,7 @@ public class MainActivity extends Activity
                             dialog.cancel();
                         }
                     });
+
             AlertDialog alert11 = builder1.create();
             alert11.show();
             relic1Standing.setChecked(false);
@@ -390,6 +479,7 @@ public class MainActivity extends Activity
         autoVuforia.setChecked(false);
         relic1Standing.setChecked(false);
         relic2Standing.setChecked(false);
+        balanced.setChecked(false);
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
@@ -398,52 +488,7 @@ public class MainActivity extends Activity
     }/*
 
     public void submitData(View view){
-        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
-            data = new DataLogger("ScoutingData.xls");
-            data.resetAndNextRow(this);
-
-            data.addField(teamNumber.getText().toString());
-
-            data.newLine();
-            data.addField(matchNumber.getText().toString());
-
-            data.newLine();
-            data.addField(beacon1.getSelectedItem().toString());
-            data.newLine();
-            data.addField(beacon2.getSelectedItem().toString());
-            data.newLine();
-            data.addField(autoParticles);
-            data.newLine();
-            data.addField(autoParticlesMissed);
-            data.newLine();
-            data.addField(teleopParticles);
-             data.newLine();
-            data.addField(teleopParticlesMissed);
-            data.newLine();
-            data.addField(teleopBeacons);
-            data.newLine();
-            data.addField(teleopBeaconsMissed);
-            data.newLine();
-            data.addField(capBall.getSelectedItem().toString());
-            data.newLine();
-            data.addField(FTAError.isChecked());
-            data.saveDataLogger(this);
-            reset();
-
-        }else{
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("No Team Number or Match Number");
-            builder1.setCancelable(true);
-            builder1.setPositiveButton(
-                    "Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
-        }
+        i
 
     }
     public void reset(View view){

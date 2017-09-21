@@ -1,4 +1,4 @@
-package com.weebly.wizards_exe.velocityvortexscouting;
+package com.weebly.wizards_exe.relicrecoveryscouting;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

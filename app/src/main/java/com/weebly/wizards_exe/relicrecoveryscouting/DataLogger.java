@@ -1,4 +1,4 @@
-package com.weebly.wizards_exe.velocityvortexscouting;
+package com.weebly.wizards_exe.relicrecoveryscouting;
 
 /**
  * Created by Olavi Kamppari on 9/9/2015.
@@ -9,23 +9,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import android.app.Activity;
+
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
@@ -82,6 +75,7 @@ public class DataLogger {
         Cell c = currentRow.createCell(column + lastColumnNumber);
         c.setCellValue(obj);
         column++;
+
     }
     public void addField(Double obj){
         Cell c = currentRow.createCell(column + lastColumnNumber);
@@ -166,25 +160,39 @@ public class DataLogger {
         this.addNewLine();
         this.addField("Match Number");
         this.addNewLine();
-        this.addField("Auto Beacon 1");
+        this.addField("Jewel 1");
         this.addNewLine();
-        this.addField("Auto Beacon 2");
+        this.addField("Jewel 2");
         this.addNewLine();
-        this.addField("Auto Particles");
+        this.addField("Auto Glyphs");
         this.addNewLine();
-        this.addField("Auto Particles Missed");
+        this.addField("Auto Parked");
         this.addNewLine();
-        this.addField("Teleop Particles");
+        this.addField("Auto Vuforia");
         this.addNewLine();
-        this.addField("Teleop Particles Missed");
+        this.addField("Teleop Glyphs");
         this.addNewLine();
-        this.addField("Teleop Beacons");
+        this.addField("Teleop Rows");
         this.addNewLine();
-        this.addField("Teleop Beacons Missed");
+        this.addField("Teleop Columns");
         this.addNewLine();
-        this.addField("Cap Ball");
+        this.addField("Teleop Ciphers");
+        this.addNewLine();
+        this.addField("Relic 1");
+        this.addNewLine();
+        this.addField("Relic 1 Standing");
+        this.addNewLine();
+        this.addField("Relic 2");
+        this.addNewLine();
+        this.addField("Relic 2 Standing");
+        this.addNewLine();
+        this.addField("Balanced");
+        this.addNewLine();
+        this.addField("Score");
         this.addNewLine();
         this.addField("FTA Error");
+        this.addNewLine();
+        this.addField("Additional Comments");
         this.addNewLine();
 
     }
