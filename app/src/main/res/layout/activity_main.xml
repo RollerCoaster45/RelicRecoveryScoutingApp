@@ -151,13 +151,43 @@
                 android:onClick="autoVuforiaClick"
                 />
             <TextView
+                android:id="@+id/AutoSwitch1Label"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Far Stone"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toLeftOf="@id/AutoVuforiaGlyphCheckbox"
+                app:layout_constraintTop_toBottomOf="@+id/AutoVuforiaGlyphCheckbox"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp" />
+            <Switch
+                android:id="@+id/AutoSwitch"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/AutoSwitch1Label"
+                app:layout_constraintTop_toTopOf="@+id/AutoSwitch1Label"
+                />
+            <TextView
+                android:id="@+id/AutoSwitch2Label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Close Stone"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toRightOf="@id/AutoSwitch"
+                app:layout_constraintTop_toTopOf="@+id/AutoSwitch"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+            <TextView
                 android:id="@+id/TeleopLabel"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:text="TeleOp"
                 android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="@id/AutoVuforiaGlyphCheckbox"
-                app:layout_constraintTop_toBottomOf="@+id/AutoVuforiaGlyphCheckbox"
+                app:layout_constraintLeft_toLeftOf="@id/AutoSwitch1Label"
+                app:layout_constraintTop_toBottomOf="@+id/AutoSwitch1Label"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="16dp"
                 android:textSize="15dp"
@@ -305,12 +335,42 @@
                 app:layout_constraintLeft_toRightOf="@+id/CipherSeekBar"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
             <TextView
+                android:id="@+id/TeleopSwitch1Label"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Far Box"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toLeftOf="@id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/CipherLabel"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp" />
+            <Switch
+                android:id="@+id/TeleopSwitch"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/TeleopSwitch1Label"
+                app:layout_constraintTop_toTopOf="@+id/TeleopSwitch1Label"
+                />
+            <TextView
+                android:id="@+id/TeleopSwitch2Label"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Close Box"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toRightOf="@id/TeleopSwitch"
+                app:layout_constraintTop_toTopOf="@+id/TeleopSwitch"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+            <TextView
                 android:id="@+id/EndGameLabel"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:text="End Game"
-                app:layout_constraintLeft_toLeftOf="@+id/CipherLabel"
-                app:layout_constraintTop_toBottomOf="@+id/CipherLabel"
+                app:layout_constraintLeft_toLeftOf="@+id/TeleopSwitch1Label"
+                app:layout_constraintTop_toBottomOf="@+id/TeleopSwitch1Label"
                 android:layout_marginTop="20dp"
                 android:textSize="15dp"
                 android:textStyle="bold"

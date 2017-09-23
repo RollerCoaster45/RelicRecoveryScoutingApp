@@ -14,11 +14,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns;
+    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label;
     private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity
     private EditText teamNumber, matchNumber, additionalInfo;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
+    private Switch autoSwitch, teleopSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,6 +53,10 @@ public class MainActivity extends Activity
         teleopRows = (TextView) findViewById(R.id.TeleopRowNumber);
         teleopColumnLabel = (TextView) findViewById(R.id.TeleopColumnLabel);
         teleopColumns = (TextView) findViewById(R.id.TeleopColumnNumber);
+        autoSwitch1Label = (TextView) findViewById(R.id.AutoSwitch1Label);
+        autoSwitch2Label = (TextView) findViewById(R.id.AutoSwitch2Label);
+        teleopSwitch1Label = (TextView) findViewById(R.id.TeleopSwitch1Label);
+        teleopSwitch2Label = (TextView) findViewById(R.id.TeleopSwitch2Label);
 
         addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
         subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
@@ -154,11 +160,14 @@ public class MainActivity extends Activity
             }
         });
 
+        autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
+        teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
+
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns};
-        View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
+        View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
         View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced};
 
         for(View widget:quarterWidgets){
@@ -253,10 +262,12 @@ public class MainActivity extends Activity
             data.addField(autoGlyphsNumber);
             data.addField(autoParked.isChecked());
             data.addField(autoVuforia.isChecked());
+            data.addField(autoSwitch.isChecked());
             data.addField(teleopGlyphNumber);
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
             data.addField(ciphersDoneNumber);
+            data.addField(teleopSwitch.isChecked());
             data.addField(relic1Spinner.getSelectedItem().toString());
             data.addField(relic1Standing.isChecked());
             data.addField(relic2Spinner.getSelectedItem().toString());

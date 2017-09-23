@@ -152,10 +152,12 @@ public class DataLogger {
         this.addField("Auto Glyphs");
         this.addField("Auto Parked");
         this.addField("Auto Vuforia");
+        this.addField("far stone?");
         this.addField("Teleop Glyphs");
         this.addField("Teleop Rows");
         this.addField("Teleop Columns");
         this.addField("Teleop Ciphers");
+        this.addField("far box");
         this.addField("Relic 1");
         this.addField("Relic 1 Standing");
         this.addField("Relic 2");
