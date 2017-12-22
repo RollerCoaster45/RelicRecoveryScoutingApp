@@ -1,6 +1,5 @@
 package com.weebly.wizards_exe.relicrecoveryscouting;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,13 +18,12 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label;
-    private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
-    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
+    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label;
+    private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
+    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
-    private SeekBar cipherSeekBar;
     private EditText teamNumber, matchNumber, additionalInfo;
-    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber, teleopRowNumber, teleopColumnNumber;
+    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
     private Switch autoSwitch, teleopSwitch;
 
@@ -36,15 +34,13 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
         autoGlyphs = (TextView) findViewById(R.id.AutoGlyphsNumber);
         teleopGlyphs = (TextView) findViewById(R.id.TeleopGlyphNumber);
-        teleopCiphers = (TextView) findViewById(R.id.CipherNumber);
+
         score = (TextView) findViewById(R.id.Score);
         autonomousLabel = (TextView) findViewById(R.id.AutonomousLabel);
-        jewel1Label = (TextView) findViewById(R.id.Jewel1Label);
-        jewel2Label = (TextView) findViewById(R.id.Jewel2Label);
+        jewelLabel = (TextView) findViewById(R.id.Jewel1Label);
         autoGlyphsLabel = (TextView) findViewById(R.id.AutoGlyphsLabel);
         teleopLabel = (TextView) findViewById(R.id.TeleopLabel);
         teleopGlyphsLabel = (TextView) findViewById(R.id.TeleopGlyphLabel);
-        cipherLabel = (TextView) findViewById(R.id.CipherLabel);
         endGameLabel = (TextView) findViewById(R.id.EndGameLabel);
         relic1Label = (TextView) findViewById(R.id.Relic1Label);
         relic2Label = (TextView) findViewById(R.id.Relic2Label);
@@ -69,8 +65,7 @@ public class MainActivity extends Activity
         submit = (Button) findViewById(R.id.Submit);
         reset = (Button) findViewById(R.id.Reset);
 
-        jewel1Spinner = (Spinner) findViewById(R.id.Jewel1Spinner);
-        jewel2Spinner = (Spinner) findViewById(R.id.Jewel2Spinner);
+        jewelSpinner = (Spinner) findViewById(R.id.Jewel1Spinner);
         relic1Spinner = (Spinner) findViewById(R.id.Relic1Spinner);
         relic2Spinner = (Spinner) findViewById(R.id.Relic2Spinner);
         ArrayAdapter<CharSequence> relicAdapter = ArrayAdapter.createFromResource(this,
@@ -79,22 +74,10 @@ public class MainActivity extends Activity
                 R.array.jewelSpinnerItems, android.R.layout.simple_spinner_item);
         relicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         jewelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        jewel1Spinner.setAdapter(jewelAdapter);
-        jewel2Spinner.setAdapter(jewelAdapter);
+        jewelSpinner.setAdapter(jewelAdapter);
         relic1Spinner.setAdapter(relicAdapter);
         relic2Spinner.setAdapter(relicAdapter);
-        jewel1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                update();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        jewel2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        jewelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 update();
@@ -139,26 +122,8 @@ public class MainActivity extends Activity
         relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
         autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
         balanced = (CheckBox) findViewById(R.id.BalancedPark);
+        cipher = (CheckBox) findViewById(R.id.CipherCheckBox);
 
-        cipherSeekBar = (SeekBar) findViewById(R.id.CipherSeekBar);
-        cipherSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                ciphersDoneNumber=progress;
-                update();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
         teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
@@ -166,9 +131,9 @@ public class MainActivity extends Activity
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
-        View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
+        View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher};
 
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
@@ -257,8 +222,7 @@ public class MainActivity extends Activity
             data.resetAndNextRow(this);
             data.addField(teamNumber.getText().toString());
             data.addField(matchNumber.getText().toString());
-            data.addField(jewel1Spinner.getSelectedItem().toString());
-            data.addField(jewel2Spinner.getSelectedItem().toString());
+            data.addField(jewelSpinner.getSelectedItem().toString());
             data.addField(autoGlyphsNumber);
             data.addField(autoParked.isChecked());
             data.addField(autoVuforia.isChecked());
@@ -266,7 +230,7 @@ public class MainActivity extends Activity
             data.addField(teleopGlyphNumber);
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
-            data.addField(ciphersDoneNumber);
+            data.addField(cipher.isChecked());
             data.addField(teleopSwitch.isChecked());
             data.addField(relic1Spinner.getSelectedItem().toString());
             data.addField(relic1Standing.isChecked());
@@ -320,7 +284,9 @@ public class MainActivity extends Activity
         scoreNumber += teleopGlyphNumber*2;
         scoreNumber += teleopRowNumber*10;
         scoreNumber += teleopColumnNumber*20;
-        scoreNumber += ciphersDoneNumber * 30;
+        if(cipher.isChecked()){
+            scoreNumber+=30;
+        }
         if(autoParked.isChecked()){
             scoreNumber += 10;
         }
@@ -379,14 +345,9 @@ public class MainActivity extends Activity
         }else if(autoVuforia.isChecked()){
             scoreNumber += 30;
         }
-        if(jewel1Spinner.getSelectedItem().toString().equals("Right Color")){
+        if(jewelSpinner.getSelectedItem().toString().equals("Right Color")){
             scoreNumber+=30;
-        }else if(jewel1Spinner.getSelectedItem().toString().equals("Wrong Color")){
-            scoreNumber-=30;
-        }
-        if(jewel2Spinner.getSelectedItem().toString().equals("Right Color")){
-            scoreNumber+=30;
-        }else if(jewel2Spinner.getSelectedItem().toString().equals("Wrong Color")){
+        }else if(jewelSpinner.getSelectedItem().toString().equals("Wrong Color")){
             scoreNumber-=30;
         }
         if(relic1Spinner.getSelectedItem().toString().equals("Zone 1")){
@@ -405,7 +366,6 @@ public class MainActivity extends Activity
         }
         autoGlyphs.setText(autoGlyphsNumber+"");
         teleopGlyphs.setText(teleopGlyphNumber+"");
-        teleopCiphers.setText(ciphersDoneNumber+"");
         score.setText(scoreNumber + "");
         teleopRows.setText(teleopRowNumber+"");
         teleopColumns.setText(teleopColumnNumber+"");
@@ -442,12 +402,10 @@ public class MainActivity extends Activity
     public void reset(){
         autoGlyphsNumber = 0;
         teleopGlyphNumber = 0;
-        ciphersDoneNumber = 0;
         scoreNumber = 0;
         teleopColumnNumber = 0;
         teleopRowNumber = 0;
-        jewel1Spinner.setSelection(0);
-        jewel2Spinner.setSelection(0);
+        jewelSpinner.setSelection(0);
         relic1Spinner.setSelection(0);
         relic2Spinner.setSelection(0);
         autoParked.setChecked(false);
@@ -455,10 +413,12 @@ public class MainActivity extends Activity
         relic1Standing.setChecked(false);
         relic2Standing.setChecked(false);
         balanced.setChecked(false);
+        cipher.setChecked(false);
+        autoSwitch.setChecked(false);
+        teleopSwitch.setChecked(false);
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
-        cipherSeekBar.setProgress(0);
         update();
     }/*
 
