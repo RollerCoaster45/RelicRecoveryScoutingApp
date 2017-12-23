@@ -3,6 +3,7 @@ package com.weebly.wizards_exe.relicrecoveryscouting;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import org.apache.poi.hssf.util.HSSFColor;
 
 public class MainActivity extends Activity
 {
@@ -34,6 +37,7 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
         autoGlyphs = (TextView) findViewById(R.id.AutoGlyphsNumber);
         teleopGlyphs = (TextView) findViewById(R.id.TeleopGlyphNumber);
+
 
         score = (TextView) findViewById(R.id.Score);
         autonomousLabel = (TextView) findViewById(R.id.AutonomousLabel);
@@ -124,7 +128,6 @@ public class MainActivity extends Activity
         balanced = (CheckBox) findViewById(R.id.BalancedPark);
         cipher = (CheckBox) findViewById(R.id.CipherCheckBox);
 
-
         autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
         teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
 
@@ -134,7 +137,8 @@ public class MainActivity extends Activity
         View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
         View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
         View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher};
-
+        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label};
+        CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher};
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
             layout.width = width/4;
@@ -150,6 +154,14 @@ public class MainActivity extends Activity
             layout.width = width;
             widget.setLayoutParams(layout);
 
+        }
+        for(TextView textView:textViews){
+            textView.setTextColor(Color.BLACK);
+            textView.setTextSize(20);
+        }
+        for(CheckBox checkBox:checkBoxes){
+            checkBox.setTextColor(Color.BLACK);
+            checkBox.setTextSize(20);
         }
         reset();
     }
@@ -220,18 +232,26 @@ public class MainActivity extends Activity
         if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
             data = new DataLogger("ScoutingData.xls");
             data.resetAndNextRow(this);
-            data.addField(teamNumber.getText().toString());
-            data.addField(matchNumber.getText().toString());
+            data.addField(Integer.parseInt(teamNumber.getText().toString()));
+            data.addField(Integer.parseInt(matchNumber.getText().toString()));
             data.addField(jewelSpinner.getSelectedItem().toString());
             data.addField(autoGlyphsNumber);
             data.addField(autoParked.isChecked());
             data.addField(autoVuforia.isChecked());
-            data.addField(autoSwitch.isChecked());
+            if(autoSwitch.isChecked()){
+                data.addField("Close Stone");
+            }else{
+                data.addField("Far Stone");
+            }
             data.addField(teleopGlyphNumber);
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
             data.addField(cipher.isChecked());
-            data.addField(teleopSwitch.isChecked());
+            if(teleopSwitch.isChecked()){
+                data.addField("Close Box");
+            }else{
+                data.addField("Far Box");
+            }
             data.addField(relic1Spinner.getSelectedItem().toString());
             data.addField(relic1Standing.isChecked());
             data.addField(relic2Spinner.getSelectedItem().toString());
