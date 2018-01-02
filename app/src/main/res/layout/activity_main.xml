@@ -290,7 +290,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
                 android:onClick="subTeleopColumn"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/CipherCheckBox"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
@@ -378,7 +378,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/Relic2Label"
                 app:layout_constraintTop_toBottomOf="@+id/Relic2Label" />
             />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/Relic1CheckBox"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -389,7 +389,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Relic1Spinner"
                 android:onClick="standing1Update"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/Relic2CheckBox"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -400,7 +400,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Relic2Spinner"
                 android:onClick="standing2Update"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/BalancedPark"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
@@ -431,7 +431,7 @@
                 android:textSize="15dp"
                 android:layout_marginTop="20dp"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/FTAError"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
