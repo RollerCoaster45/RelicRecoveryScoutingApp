@@ -436,6 +436,7 @@ public class MainActivity extends Activity
         cipher.setChecked(false);
         autoSwitch.setChecked(false);
         teleopSwitch.setChecked(false);
+        FTAError.setChecked(false);
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
