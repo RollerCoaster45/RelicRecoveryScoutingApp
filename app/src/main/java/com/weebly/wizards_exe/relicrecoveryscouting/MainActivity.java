@@ -21,14 +21,14 @@ import org.apache.poi.hssf.util.HSSFColor;
 
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label;
+    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label,allianceLabel, redAllianceLabel, blueAllianceLabel;
     private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
     private EditText teamNumber, matchNumber, additionalInfo;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
-    private Switch autoSwitch, teleopSwitch;
+    private Switch autoSwitch, teleopSwitch, allianceSwitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -57,6 +57,9 @@ public class MainActivity extends Activity
         autoSwitch2Label = (TextView) findViewById(R.id.AutoSwitch2Label);
         teleopSwitch1Label = (TextView) findViewById(R.id.TeleopSwitch1Label);
         teleopSwitch2Label = (TextView) findViewById(R.id.TeleopSwitch2Label);
+        allianceLabel = (TextView) findViewById(R.id.AllianceLabel);
+        redAllianceLabel = (TextView) findViewById(R.id.RedAllianceLabel);
+        blueAllianceLabel = (TextView) findViewById(R.id.BlueAllianceLabel);
 
         addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
         subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
@@ -130,14 +133,15 @@ public class MainActivity extends Activity
 
         autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
         teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
+        allianceSwitch = (Switch) findViewById(R.id.AllianceSwitch);
 
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch};
         View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher};
-        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel};
+        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel};
         CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher};
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
@@ -234,6 +238,11 @@ public class MainActivity extends Activity
             data.resetAndNextRow(this);
             data.addField(Integer.parseInt(teamNumber.getText().toString()));
             data.addField(Integer.parseInt(matchNumber.getText().toString()));
+            if(allianceSwitch.isChecked()){
+                data.addField("Blue");
+            }else{
+                data.addField("red");
+            }
             data.addField(jewelSpinner.getSelectedItem().toString());
             data.addField(autoGlyphsNumber);
             data.addField(autoParked.isChecked());
@@ -437,105 +446,11 @@ public class MainActivity extends Activity
         autoSwitch.setChecked(false);
         teleopSwitch.setChecked(false);
         FTAError.setChecked(false);
+        allianceSwitch.setChecked(false);
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
         update();
-    }/*
-
-    public void submitData(View view){
-        i
-
     }
-    public void reset(View view){
-        reset();
-    }
-    public void reset(){
-        autoParticles = 0;
-        autoParticlesMissed = 0;
-        teleopParticles = 0;
-        teleopParticlesMissed = 0;
-        teleopBeacons = 0;
-        teleopBeaconsMissed = 0;
-        teamNumber.setText("");
-        matchNumber.setText("");
-        FTAError.setChecked(false);
-        beacon1.setSelection(0);
-        beacon2.setSelection(0);
-        capBall.setSelection(0);
-        update();
-    }
-    public void update(){
-        autoParticle.setText(autoParticles+"");
-
-        autoParticleMissed.setText(autoParticlesMissed+"");
-        teleopParticle.setText(teleopParticles+"");
-        teleopParticleMissed.setText(teleopParticlesMissed+"");
-        teleopBeacon.setText(teleopBeacons+"");
-        teleopBeaconMissed.setText(teleopBeaconsMissed+"");
-    }
-    public void addAutoParticle(View view){
-        autoParticles++;
-        update();
-    }
-    public void addAutoParticleMissed(View view){
-        autoParticlesMissed++;
-        update();
-    }
-    public void addTeleopParticle(View view){
-        teleopParticles++;
-        update();
-    }
-    public void addTeleopParticleMissed(View view){
-        teleopParticlesMissed++;
-        update();
-    }
-    public void addTeleopBeacon(View view){
-        teleopBeacons++;
-        update();
-    }
-    public void addTeleopBeaconMissed(View view){
-        teleopBeaconsMissed++;
-        update();
-    }
-    public void subAutoParticle(View view){
-        if(autoParticles>0){
-            autoParticles--;
-        }
-        update();
-    }
-    public void subAutoParticleMissed(View view){
-        if(autoParticlesMissed>0){
-            autoParticlesMissed--;
-        }
-        update();
-    }
-    public void subTeleopParticle(View view){
-        if(teleopParticles>0){
-            teleopParticles--;
-        }
-        update();
-    }
-    public void subTeleopParticleMissed(View view){
-        if(teleopParticlesMissed>0){
-            teleopParticlesMissed--;
-        }
-        update();
-    }
-    public void subTeleopBeacon(View view){
-        if(teleopBeacons>0){
-            teleopBeacons--;
-        }
-        update();
-    }
-    public void subTeleopBeaconMissed(View view){
-    if(teleopBeaconsMissed>0){
-        teleopBeaconsMissed--;
-    }
-    update();
-}*/
-
-
-
 
 }

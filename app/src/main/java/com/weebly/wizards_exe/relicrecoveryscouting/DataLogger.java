@@ -151,6 +151,7 @@ public class DataLogger {
     private void setupSpreadsheet(){
         this.addField("Team Number");
         this.addField("Match Number");
+        this.addField("Alliance Color");
         this.addField("Jewel");
         this.addField("Auto Glyphs");
         this.addField("Auto Parked");
