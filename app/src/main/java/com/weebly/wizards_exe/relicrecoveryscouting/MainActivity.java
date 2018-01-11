@@ -25,7 +25,7 @@ public class MainActivity extends Activity
     private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
-    private EditText teamNumber, matchNumber, additionalInfo;
+    private EditText teamNumber, matchNumber, additionalInfo, sheetName;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
     private Switch autoSwitch, teleopSwitch, allianceSwitch;
@@ -121,6 +121,7 @@ public class MainActivity extends Activity
         teamNumber = (EditText)findViewById(R.id.teamNumber);
         matchNumber = (EditText)findViewById(R.id.matchNumber);
         additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
+        sheetName = (EditText) findViewById(R.id.sheetName);
 
         // Apply the adapter to the spinner
         FTAError = (CheckBox) findViewById(R.id.FTAError);
@@ -140,7 +141,7 @@ public class MainActivity extends Activity
         ViewGroup.LayoutParams layout;
         View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch};
         View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel, sheetName};
         TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel};
         CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher};
         for(View widget:quarterWidgets){
@@ -233,8 +234,8 @@ public class MainActivity extends Activity
         alert11.show();
     }
     public void submitData(){
-        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
-            data = new DataLogger("ScoutingData.xls");
+        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")&&!sheetName.getText().toString().trim().equals("")){
+            data = new DataLogger(sheetName.getText().toString()+".xls");
             data.resetAndNextRow(this);
             data.addField(Integer.parseInt(teamNumber.getText().toString()));
             data.addField(Integer.parseInt(matchNumber.getText().toString()));
@@ -275,7 +276,7 @@ public class MainActivity extends Activity
 
         }else{
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("No Team Number or Match Number");
+            builder1.setMessage("No Team Number, Match Number, or Sheet Name");
             builder1.setCancelable(true);
             builder1.setPositiveButton(
                     "Cancel",
@@ -287,7 +288,6 @@ public class MainActivity extends Activity
             AlertDialog alert11 = builder1.create();
             alert11.show();
         }
-        reset();
     }
     public void subTeleopGlyphs(View view){
         if(teleopGlyphNumber>0){

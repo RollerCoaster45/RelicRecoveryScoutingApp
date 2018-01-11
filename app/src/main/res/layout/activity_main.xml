@@ -15,18 +15,29 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <EditText
-                android:id="@+id/teamNumber"
+                android:id="@+id/sheetName"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="Sheet Name"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="8dp" />
+            <EditText
+                android:id="@+id/teamNumber"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:ems="10"
                 android:hint="Team Number"
                 android:inputType="number"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sheetName"
                 android:layout_marginStart="8dp" />
 
             <EditText
