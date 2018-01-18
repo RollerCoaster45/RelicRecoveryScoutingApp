@@ -66,9 +66,9 @@ public class MainActivity extends Activity
         addTeleopGlyph = (Button) findViewById(R.id.AddTeleopGlyph);
         subTeleopGlyph = (Button) findViewById(R.id.SubTeleopGlyph);
         addTeleopRow = (Button) findViewById(R.id.AddTeleopRows);
-        subTeleopRow = (Button) findViewById(R.id.SubTeleopRow);
+        subTeleopRow = (Button) findViewById(R.id.SubTeleopRows);
         addTeleopColumn = (Button) findViewById(R.id.AddTeleopColumns);
-        subTeleopColumn = (Button) findViewById(R.id.SubTeleopColumn);
+        subTeleopColumn = (Button) findViewById(R.id.SubTeleopColumns);
         submit = (Button) findViewById(R.id.Submit);
         reset = (Button) findViewById(R.id.Reset);
 

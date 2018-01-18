@@ -143,32 +143,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddAutoGlyphs"
+                android:id="@+id/SubAutoGlyphs"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="addAutoGlyph"/>
+                android:onClick="subAutoglyph"/>
             <TextView
                 android:id="@+id/AutoGlyphsNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddAutoGlyphs"
+                app:layout_constraintLeft_toRightOf="@+id/SubAutoGlyphs"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubAutoGlyphs"
+                android:id="@+id/AddAutoGlyphs"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsNumber"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="subAutoGlyph"/>
+                android:onClick="addAutoglyph"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoParkCheckBox"
                 android:layout_width="240dp"
@@ -177,7 +177,7 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 app:layout_constraintLeft_toLeftOf="@id/AutoGlyphsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddAutoGlyphs"
+                app:layout_constraintTop_toBottomOf="@+id/SubAutoGlyphs"
                 android:onClick = "autoParkClick"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoVuforiaGlyphCheckbox"
@@ -243,32 +243,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopGlyph"
+                android:id="@+id/SubTeleopGlyph"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphLabel"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
-                android:onClick="addTeleopGlyphs"/>
+                android:onClick="subTeleopGlyphs"/>
             <TextView
                 android:id="@+id/TeleopGlyphNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopGlyph"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopGlyph"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopGlyph"
+                android:id="@+id/AddTeleopGlyph"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphNumber"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
-                android:onClick="subTeleopGlyphs"
+                android:onClick="addTeleopGlyphs"
                 />
             <TextView
                 android:id="@+id/TeleopRowLabel"
@@ -281,32 +281,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopRows"
+                android:id="@+id/SubTeleopRows"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopRowLabel"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
-                android:onClick="addTeleopRows"/>
+                android:onClick="subTeleopRows"/>
             <TextView
                 android:id="@+id/TeleopRowNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopRows"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopRows"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopRow"
+                android:id="@+id/AddTeleopRows"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopRowNumber"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
-                android:onClick="subTeleopRows"
+                android:onClick="addTeleopRows"
                 />
             <TextView
                 android:id="@+id/TeleopColumnLabel"
@@ -319,32 +319,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopColumns"
+                android:id="@+id/SubTeleopColumns"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopColumnLabel"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
-                android:onClick="addTeleopColumns"/>
+                android:onClick="subTeleopColumn"/>
             <TextView
                 android:id="@+id/TeleopColumnNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopColumns"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopColumns"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopColumn"
+                android:id="@+id/AddTeleopColumns"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopColumnNumber"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
-                android:onClick="subTeleopColumn"
+                android:onClick="addTeleopColumns"
                 />
             <CheckBox
                 android:id="@+id/CipherCheckBox"
