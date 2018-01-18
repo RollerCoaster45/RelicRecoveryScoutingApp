@@ -171,7 +171,7 @@ public class MainActivity extends Activity
         reset();
     }
     public void addAutoGlyph(View view){
-        if(teleopGlyphNumber+autoGlyphsNumber<24){
+        if(teleopGlyphNumber<24){
             autoGlyphsNumber++;
             update();
         }
@@ -183,7 +183,7 @@ public class MainActivity extends Activity
         }
     }
     public void addTeleopGlyphs(View view){
-        if(teleopGlyphNumber+autoGlyphsNumber<24){
+        if(teleopGlyphNumber<24){
             teleopGlyphNumber++;
             update();
         }
