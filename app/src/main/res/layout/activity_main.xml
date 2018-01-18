@@ -22,7 +22,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Sheet Name"
+                android:hint="File Name"
                 android:inputType="text"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
