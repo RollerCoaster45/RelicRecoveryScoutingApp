@@ -25,7 +25,7 @@ public class MainActivity extends Activity
     private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
-    private EditText teamNumber, matchNumber, additionalInfo, sheetName;
+    private EditText teamNumber, matchNumber, additionalInfo, sheetName, initials;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
     private Switch autoSwitch, teleopSwitch, allianceSwitch;
@@ -122,6 +122,7 @@ public class MainActivity extends Activity
         matchNumber = (EditText)findViewById(R.id.matchNumber);
         additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
         sheetName = (EditText) findViewById(R.id.sheetName);
+        initials = (EditText) findViewById(R.id.Initials);
 
         // Apply the adapter to the spinner
         FTAError = (CheckBox) findViewById(R.id.FTAError);
@@ -141,7 +142,7 @@ public class MainActivity extends Activity
         ViewGroup.LayoutParams layout;
         View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch};
         View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel, sheetName};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel, sheetName, initials};
         TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel};
         CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher};
         for(View widget:quarterWidgets){
@@ -168,7 +169,7 @@ public class MainActivity extends Activity
             checkBox.setTextColor(Color.BLACK);
             checkBox.setTextSize(20);
         }
-        reset();
+
     }
     public void addAutoGlyph(View view){
         if(teleopGlyphNumber<24){
@@ -270,6 +271,7 @@ public class MainActivity extends Activity
             data.addField(scoreNumber);
             data.addField(FTAError.isChecked());
             data.addField(additionalInfo.getText().toString());
+            data.addField(initials.getText().toString());
             data.newLine();
             data.saveDataLogger(this);
             reset();

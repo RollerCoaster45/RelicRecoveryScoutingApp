@@ -149,7 +149,7 @@
                 android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="subAutoglyph"/>
+                android:onClick="subAutoGlyph"/>
             <TextView
                 android:id="@+id/AutoGlyphsNumber"
                 android:layout_width="60dp"
@@ -168,7 +168,7 @@
                 android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsNumber"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="addAutoglyph"/>
+                android:onClick="addAutoGlyph"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoParkCheckBox"
                 android:layout_width="240dp"
@@ -507,14 +507,24 @@
                 app:layout_constraintLeft_toLeftOf="@id/FTAError"
                 app:layout_constraintTop_toBottomOf="@id/FTAError"
                 />
+            <EditText
+                android:id="@+id/Initials"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Initials"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="@id/AdditionalComments"
+                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                />
             <Button
                 android:id="@+id/Submit"
                 android:text="submit"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:onClick = "submitButtonPressed"
-                app:layout_constraintLeft_toLeftOf="@id/AdditionalComments"
-                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                app:layout_constraintLeft_toLeftOf="@id/Initials"
+                app:layout_constraintTop_toBottomOf="@id/Initials"
                 />
             <Button
                 android:id="@+id/Reset"
@@ -523,7 +533,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toRightOf="@id/Submit"
                 android:onClick="resetButtonPressed"
-                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                app:layout_constraintTop_toBottomOf="@id/Initials"
                 />
 
         </android.support.constraint.ConstraintLayout>

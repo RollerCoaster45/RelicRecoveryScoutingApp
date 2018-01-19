@@ -170,6 +170,7 @@ public class DataLogger {
         this.addField("Score");
         this.addField("FTA Error");
         this.addField("Additional Comments");
+        this.addField("Initials");
         this.newLine();
 
     }
