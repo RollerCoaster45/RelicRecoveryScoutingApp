@@ -30,6 +30,7 @@ public class MainActivity extends Activity
     private DataLogger data;
     private Switch autoSwitch, teleopSwitch, allianceSwitch;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -169,10 +170,10 @@ public class MainActivity extends Activity
             checkBox.setTextColor(Color.BLACK);
             checkBox.setTextSize(20);
         }
-
+        reset();
     }
     public void addAutoGlyph(View view){
-        if(teleopGlyphNumber<24){
+        if(autoGlyphsNumber<24){
             autoGlyphsNumber++;
             update();
         }
