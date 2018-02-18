@@ -84,7 +84,11 @@ public class DataLogger {
     }
     public void addField(boolean obj){
         Cell c = currentRow.createCell(column);
-        c.setCellValue(obj);
+        if(obj){
+            c.setCellValue(1);
+        }else{
+            c.setCellValue(0);
+        }
         column++;
     }
     public void addField(Calendar obj){
@@ -147,8 +151,8 @@ public class DataLogger {
     private void setupSpreadsheet(){
         this.addField("Team Number");
         this.addField("Match Number");
-        this.addField("Jewel 1");
-        this.addField("Jewel 2");
+        this.addField("Alliance Color");
+        this.addField("Jewel");
         this.addField("Auto Glyphs");
         this.addField("Auto Parked");
         this.addField("Auto Vuforia");
@@ -156,7 +160,9 @@ public class DataLogger {
         this.addField("Teleop Glyphs");
         this.addField("Teleop Rows");
         this.addField("Teleop Columns");
-        this.addField("Teleop Ciphers");
+        this.addField("Teleop Cipher");
+        this.addField("Cipher Minutes");
+        this.addField("Cipher Seconds");
         this.addField("far box");
         this.addField("Relic 1");
         this.addField("Relic 1 Standing");
@@ -166,6 +172,7 @@ public class DataLogger {
         this.addField("Score");
         this.addField("FTA Error");
         this.addField("Additional Comments");
+        this.addField("Initials");
         this.newLine();
 
     }

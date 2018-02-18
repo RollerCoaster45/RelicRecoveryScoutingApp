@@ -15,18 +15,29 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <EditText
-                android:id="@+id/teamNumber"
+                android:id="@+id/sheetName"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="File Name"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="8dp" />
+            <EditText
+                android:id="@+id/teamNumber"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:ems="10"
                 android:hint="Team Number"
                 android:inputType="number"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sheetName"
                 android:layout_marginStart="8dp" />
 
             <EditText
@@ -40,7 +51,52 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/teamNumber"
                 android:layout_marginStart="8dp" />
-
+            <TextView
+                android:id="@+id/AllianceLabel"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="Alliance"
+                android:textAlignment="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchNumber"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/RedAllianceLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Red"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AllianceLabel"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                />
+            <Switch
+                android:id="@+id/AllianceSwitch"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/RedAllianceLabel"
+                app:layout_constraintTop_toTopOf="@+id/RedAllianceLabel"
+                />
+            <TextView
+                android:id="@+id/BlueAllianceLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Blue"
+                app:layout_constraintLeft_toRightOf="@+id/AllianceSwitch"
+                app:layout_constraintTop_toTopOf="@+id/RedAllianceLabel"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="8dp"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                />
             <TextView
             android:id="@+id/AutonomousLabel"
             android:layout_width="240dp"
@@ -48,7 +104,7 @@
             android:text="Autonomous"
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/matchNumber"
+            app:layout_constraintTop_toBottomOf="@+id/RedAllianceLabel"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
@@ -56,9 +112,9 @@
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/Jewel1Label"
-                android:layout_width="120dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:text="Jewel 1"
+                android:text="Jewel"
                 android:textAlignment="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/AutonomousLabel"
@@ -66,32 +122,16 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:textSize="15dp"/>
-            <TextView
-                android:id="@+id/Jewel2Label"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Jewel 2"
-                android:textAlignment="center"
-                app:layout_constraintLeft_toRightOf="@+id/Jewel1Label"
-                app:layout_constraintTop_toBottomOf="@+id/AutonomousLabel"
-                android:layout_marginTop="8dp"
-                android:textSize="15dp"/>
+
 
             <Spinner
                 android:id="@+id/Jewel1Spinner"
-                android:layout_width="120dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/Jewel1Label"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Label"
                 />
                  />
-            <Spinner
-                android:id="@+id/Jewel2Spinner"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@+id/Jewel2Label"
-                app:layout_constraintTop_toBottomOf="@+id/Jewel2Label" />
-            />
             <TextView
                 android:id="@+id/AutoGlyphsLabel"
                 android:layout_width="60dp"
@@ -103,32 +143,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddAutoGlyphs"
+                android:id="@+id/SubAutoGlyphs"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="addAutoGlyph"/>
+                android:onClick="subAutoGlyph"/>
             <TextView
                 android:id="@+id/AutoGlyphsNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddAutoGlyphs"
+                app:layout_constraintLeft_toRightOf="@+id/SubAutoGlyphs"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubAutoGlyphs"
+                android:id="@+id/AddAutoGlyphs"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/AutoGlyphsNumber"
                 app:layout_constraintTop_toBottomOf="@+id/Jewel1Spinner"
-                android:onClick="subAutoGlyph"/>
+                android:onClick="addAutoGlyph"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoParkCheckBox"
                 android:layout_width="240dp"
@@ -137,7 +177,7 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 app:layout_constraintLeft_toLeftOf="@id/AutoGlyphsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddAutoGlyphs"
+                app:layout_constraintTop_toBottomOf="@+id/SubAutoGlyphs"
                 android:onClick = "autoParkClick"/>
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/AutoVuforiaGlyphCheckbox"
@@ -179,7 +219,7 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                />
             <TextView
                 android:id="@+id/TeleopLabel"
                 android:layout_width="240dp"
@@ -203,32 +243,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopGlyph"
+                android:id="@+id/SubTeleopGlyph"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphLabel"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
-                android:onClick="addTeleopGlyphs"/>
+                android:onClick="subTeleopGlyphs"/>
             <TextView
                 android:id="@+id/TeleopGlyphNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopGlyph"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopGlyph"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopGlyph"
+                android:id="@+id/AddTeleopGlyph"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopGlyphNumber"
                 app:layout_constraintTop_toBottomOf="@+id/TeleopLabel"
-                android:onClick="subTeleopGlyphs"
+                android:onClick="addTeleopGlyphs"
                 />
             <TextView
                 android:id="@+id/TeleopRowLabel"
@@ -241,32 +281,32 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopRows"
+                android:id="@+id/SubTeleopRows"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopRowLabel"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
-                android:onClick="addTeleopRows"/>
+                android:onClick="subTeleopRows"/>
             <TextView
                 android:id="@+id/TeleopRowNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopRows"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopRows"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopRow"
+                android:id="@+id/AddTeleopRows"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopRowNumber"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopGlyph"
-                android:onClick="subTeleopRows"
+                android:onClick="addTeleopRows"
                 />
             <TextView
                 android:id="@+id/TeleopColumnLabel"
@@ -279,69 +319,95 @@
                 android:textSize="15dp"/>
 
             <Button
-                android:id="@+id/AddTeleopColumns"
+                android:id="@+id/SubTeleopColumns"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="+"
+                android:text="-"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopColumnLabel"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
-                android:onClick="addTeleopColumns"/>
+                android:onClick="subTeleopColumn"/>
             <TextView
                 android:id="@+id/TeleopColumnNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                app:layout_constraintLeft_toRightOf="@+id/AddTeleopColumns"
+                app:layout_constraintLeft_toRightOf="@+id/SubTeleopColumns"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textSize="15dp"
                 />
             <Button
-                android:id="@+id/SubTeleopColumn"
+                android:id="@+id/AddTeleopColumns"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:text="-"
+                android:text="+"
                 app:layout_constraintLeft_toRightOf="@+id/TeleopColumnNumber"
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
-                android:onClick="subTeleopColumn"
+                android:onClick="addTeleopColumns"
                 />
-
+            <!--
+            <CheckBox
+                android:id="@+id/CipherCheckBox"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="Cipher Completed"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/TeleopColumnLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
+                android:onClick="autoVuforiaClick"
+                />
+                -->
             <TextView
                 android:id="@+id/CipherLabel"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="Ciphers Done"
-                app:layout_constraintLeft_toLeftOf="@+id/TeleopColumnLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
-                android:layout_marginTop="0dp"
-                android:textSize="15dp"
-                />
-
-            <SeekBar
-                android:id="@+id/CipherSeekBar"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:max="2"
-                android:progress="0"
-                app:layout_constraintLeft_toRightOf="@+id/CipherLabel"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
+                android:text="Cipher"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/TeleopColumnLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
+                />
 
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/CipherSeekBar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:max="2"
+                android:onClick="autoVuforiaClick"
+                app:layout_constraintLeft_toRightOf="@id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
             <TextView
                 android:id="@+id/CipherNumber"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintLeft_toRightOf="@+id/CipherSeekBar"
-                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
+                />
+
+
+            <EditText
+                android:id="@+id/CipherTime"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Time of Cipher"
+                android:inputType="time"
+                app:layout_constraintLeft_toLeftOf="@id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@id/CipherLabel" />
+
             <TextView
                 android:id="@+id/TeleopSwitch1Label"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Far Box"
                 android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="@id/CipherLabel"
-                app:layout_constraintTop_toBottomOf="@+id/CipherLabel"
+                app:layout_constraintLeft_toLeftOf="@id/CipherTime"
+                app:layout_constraintTop_toBottomOf="@id/CipherTime"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:textSize="15dp" />
@@ -363,7 +429,7 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                />
             <TextView
                 android:id="@+id/EndGameLabel"
                 android:layout_width="240dp"
@@ -410,7 +476,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/Relic2Label"
                 app:layout_constraintTop_toBottomOf="@+id/Relic2Label" />
             />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/Relic1CheckBox"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -421,7 +487,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Relic1Spinner"
                 android:onClick="standing1Update"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/Relic2CheckBox"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -432,7 +498,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/Relic2Spinner"
                 android:onClick="standing2Update"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/BalancedPark"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
@@ -463,7 +529,7 @@
                 android:textSize="15dp"
                 android:layout_marginTop="20dp"
                 />
-            <android.support.v7.widget.AppCompatCheckBox
+            <CheckBox
                 android:id="@+id/FTAError"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
@@ -483,14 +549,24 @@
                 app:layout_constraintLeft_toLeftOf="@id/FTAError"
                 app:layout_constraintTop_toBottomOf="@id/FTAError"
                 />
+            <EditText
+                android:id="@+id/Initials"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Initials"
+                android:inputType="text"
+                app:layout_constraintLeft_toLeftOf="@id/AdditionalComments"
+                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                />
             <Button
                 android:id="@+id/Submit"
                 android:text="submit"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:onClick = "submitButtonPressed"
-                app:layout_constraintLeft_toLeftOf="@id/AdditionalComments"
-                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                app:layout_constraintLeft_toLeftOf="@id/Initials"
+                app:layout_constraintTop_toBottomOf="@id/Initials"
                 />
             <Button
                 android:id="@+id/Reset"
@@ -499,9 +575,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toRightOf="@id/Submit"
                 android:onClick="resetButtonPressed"
-                app:layout_constraintTop_toBottomOf="@id/AdditionalComments"
+                app:layout_constraintTop_toBottomOf="@id/Initials"
                 />
-
         </android.support.constraint.ConstraintLayout>
     </HorizontalScrollView>
 </ScrollView>

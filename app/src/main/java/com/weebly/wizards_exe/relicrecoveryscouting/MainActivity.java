@@ -1,9 +1,9 @@
 package com.weebly.wizards_exe.relicrecoveryscouting;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +17,21 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import org.apache.poi.hssf.util.HSSFColor;
+
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, teleopCiphers, score, autonomousLabel, jewel1Label, jewel2Label, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, cipherLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label;
-    private Spinner jewel1Spinner, jewel2Spinner, relic1Spinner, relic2Spinner;
+    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label,allianceLabel, redAllianceLabel, blueAllianceLabel, cipherLabel, cipherNumber;
+    private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
     private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
-    private SeekBar cipherSeekBar;
-    private EditText teamNumber, matchNumber, additionalInfo;
-    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, ciphersDoneNumber, teleopRowNumber, teleopColumnNumber;
+    private SeekBar cipherSeek;
+    private EditText teamNumber, matchNumber, additionalInfo, sheetName, initials, cipherTime;
+    private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
-    private Switch autoSwitch, teleopSwitch;
+    private Switch autoSwitch, teleopSwitch, allianceSwitch;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -36,15 +40,14 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
         autoGlyphs = (TextView) findViewById(R.id.AutoGlyphsNumber);
         teleopGlyphs = (TextView) findViewById(R.id.TeleopGlyphNumber);
-        teleopCiphers = (TextView) findViewById(R.id.CipherNumber);
+
+
         score = (TextView) findViewById(R.id.Score);
         autonomousLabel = (TextView) findViewById(R.id.AutonomousLabel);
-        jewel1Label = (TextView) findViewById(R.id.Jewel1Label);
-        jewel2Label = (TextView) findViewById(R.id.Jewel2Label);
+        jewelLabel = (TextView) findViewById(R.id.Jewel1Label);
         autoGlyphsLabel = (TextView) findViewById(R.id.AutoGlyphsLabel);
         teleopLabel = (TextView) findViewById(R.id.TeleopLabel);
         teleopGlyphsLabel = (TextView) findViewById(R.id.TeleopGlyphLabel);
-        cipherLabel = (TextView) findViewById(R.id.CipherLabel);
         endGameLabel = (TextView) findViewById(R.id.EndGameLabel);
         relic1Label = (TextView) findViewById(R.id.Relic1Label);
         relic2Label = (TextView) findViewById(R.id.Relic2Label);
@@ -57,20 +60,24 @@ public class MainActivity extends Activity
         autoSwitch2Label = (TextView) findViewById(R.id.AutoSwitch2Label);
         teleopSwitch1Label = (TextView) findViewById(R.id.TeleopSwitch1Label);
         teleopSwitch2Label = (TextView) findViewById(R.id.TeleopSwitch2Label);
+        allianceLabel = (TextView) findViewById(R.id.AllianceLabel);
+        redAllianceLabel = (TextView) findViewById(R.id.RedAllianceLabel);
+        blueAllianceLabel = (TextView) findViewById(R.id.BlueAllianceLabel);
+        cipherLabel = (TextView) findViewById(R.id.CipherLabel);
+        cipherNumber = (TextView) findViewById(R.id.CipherNumber);
 
         addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
         subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
         addTeleopGlyph = (Button) findViewById(R.id.AddTeleopGlyph);
         subTeleopGlyph = (Button) findViewById(R.id.SubTeleopGlyph);
         addTeleopRow = (Button) findViewById(R.id.AddTeleopRows);
-        subTeleopRow = (Button) findViewById(R.id.SubTeleopRow);
+        subTeleopRow = (Button) findViewById(R.id.SubTeleopRows);
         addTeleopColumn = (Button) findViewById(R.id.AddTeleopColumns);
-        subTeleopColumn = (Button) findViewById(R.id.SubTeleopColumn);
+        subTeleopColumn = (Button) findViewById(R.id.SubTeleopColumns);
         submit = (Button) findViewById(R.id.Submit);
         reset = (Button) findViewById(R.id.Reset);
 
-        jewel1Spinner = (Spinner) findViewById(R.id.Jewel1Spinner);
-        jewel2Spinner = (Spinner) findViewById(R.id.Jewel2Spinner);
+        jewelSpinner = (Spinner) findViewById(R.id.Jewel1Spinner);
         relic1Spinner = (Spinner) findViewById(R.id.Relic1Spinner);
         relic2Spinner = (Spinner) findViewById(R.id.Relic2Spinner);
         ArrayAdapter<CharSequence> relicAdapter = ArrayAdapter.createFromResource(this,
@@ -79,22 +86,10 @@ public class MainActivity extends Activity
                 R.array.jewelSpinnerItems, android.R.layout.simple_spinner_item);
         relicAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         jewelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        jewel1Spinner.setAdapter(jewelAdapter);
-        jewel2Spinner.setAdapter(jewelAdapter);
+        jewelSpinner.setAdapter(jewelAdapter);
         relic1Spinner.setAdapter(relicAdapter);
         relic2Spinner.setAdapter(relicAdapter);
-        jewel1Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                update();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        jewel2Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        jewelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 update();
@@ -127,25 +122,10 @@ public class MainActivity extends Activity
 
             }
         });
-
-        teamNumber = (EditText)findViewById(R.id.teamNumber);
-        matchNumber = (EditText)findViewById(R.id.matchNumber);
-        additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
-
-        // Apply the adapter to the spinner
-        FTAError = (CheckBox) findViewById(R.id.FTAError);
-        autoParked = (CheckBox) findViewById(R.id.AutoParkCheckBox);
-        relic1Standing = (CheckBox) findViewById(R.id.Relic1CheckBox);
-        relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
-        autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
-        balanced = (CheckBox) findViewById(R.id.BalancedPark);
-
-        cipherSeekBar = (SeekBar) findViewById(R.id.CipherSeekBar);
-        cipherSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
+        cipherSeek = (SeekBar) findViewById(R.id.CipherSeekBar);
+        cipherSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                ciphersDoneNumber=progress;
                 update();
             }
 
@@ -159,17 +139,35 @@ public class MainActivity extends Activity
 
             }
         });
+        teamNumber = (EditText)findViewById(R.id.teamNumber);
+        matchNumber = (EditText)findViewById(R.id.matchNumber);
+        additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
+        sheetName = (EditText) findViewById(R.id.sheetName);
+        initials = (EditText) findViewById(R.id.Initials);
+        cipherTime = (EditText) findViewById(R.id.CipherTime);
+
+        // Apply the adapter to the spinner
+        FTAError = (CheckBox) findViewById(R.id.FTAError);
+        autoParked = (CheckBox) findViewById(R.id.AutoParkCheckBox);
+        relic1Standing = (CheckBox) findViewById(R.id.Relic1CheckBox);
+        relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
+        autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
+        balanced = (CheckBox) findViewById(R.id.BalancedPark);
+        //cipher = (CheckBox) findViewById(R.id.CipherCheckBox);
 
         autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
         teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
+        allianceSwitch = (Switch) findViewById(R.id.AllianceSwitch);
+
 
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, cipherSeekBar, teleopCiphers, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch};
-        View[] halfWidgets = {scoreLabel, score, jewel1Label, jewel1Spinner, jewel2Label, jewel2Spinner, cipherLabel, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced};
-
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch, cipherLabel, cipherNumber};
+        View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label, cipherSeek};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, allianceLabel, sheetName, initials, cipherTime};
+        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel, cipherNumber, cipherLabel};
+        CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced};
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
             layout.width = width/4;
@@ -186,10 +184,19 @@ public class MainActivity extends Activity
             widget.setLayoutParams(layout);
 
         }
+        for(TextView textView:textViews){
+            textView.setTextColor(Color.BLACK);
+            textView.setTextSize(20);
+        }
+        for(CheckBox checkBox:checkBoxes){
+            checkBox.setTextColor(Color.BLACK);
+            checkBox.setTextSize(20);
+        }
         reset();
     }
+
     public void addAutoGlyph(View view){
-        if(teleopGlyphNumber+autoGlyphsNumber<24){
+        if(autoGlyphsNumber<24){
             autoGlyphsNumber++;
             update();
         }
@@ -201,7 +208,7 @@ public class MainActivity extends Activity
         }
     }
     public void addTeleopGlyphs(View view){
-        if(teleopGlyphNumber+autoGlyphsNumber<24){
+        if(teleopGlyphNumber<24){
             teleopGlyphNumber++;
             update();
         }
@@ -252,37 +259,9 @@ public class MainActivity extends Activity
         alert11.show();
     }
     public void submitData(){
-        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")){
-            data = new DataLogger("ScoutingData.xls");
-            data.resetAndNextRow(this);
-            data.addField(teamNumber.getText().toString());
-            data.addField(matchNumber.getText().toString());
-            data.addField(jewel1Spinner.getSelectedItem().toString());
-            data.addField(jewel2Spinner.getSelectedItem().toString());
-            data.addField(autoGlyphsNumber);
-            data.addField(autoParked.isChecked());
-            data.addField(autoVuforia.isChecked());
-            data.addField(autoSwitch.isChecked());
-            data.addField(teleopGlyphNumber);
-            data.addField(teleopRowNumber);
-            data.addField(teleopColumnNumber);
-            data.addField(ciphersDoneNumber);
-            data.addField(teleopSwitch.isChecked());
-            data.addField(relic1Spinner.getSelectedItem().toString());
-            data.addField(relic1Standing.isChecked());
-            data.addField(relic2Spinner.getSelectedItem().toString());
-            data.addField(relic2Standing.isChecked());
-            data.addField(balanced.isChecked());
-            data.addField(scoreNumber);
-            data.addField(FTAError.isChecked());
-            data.addField(additionalInfo.getText().toString());
-            data.newLine();
-            data.saveDataLogger(this);
-            reset();
-
-        }else{
+        if(teamNumber.getText().toString().trim().equals("")){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("No Team Number or Match Number");
+            builder1.setMessage("No Team Number");
             builder1.setCancelable(true);
             builder1.setPositiveButton(
                     "Cancel",
@@ -293,8 +272,128 @@ public class MainActivity extends Activity
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
+        }else if(matchNumber.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No match Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(sheetName.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Sheet Name");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(cipherSeek.getProgress()!=0&&cipherTime.getText().toString().trim().equals("")||cipherSeek.getProgress()==0&&!cipherTime.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Can't have a cipher without time or time without cipher");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(cipherTime.getText().toString().trim().split(":").length!=2){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Incorrect formatting for cipher time, should be minutes:seconds of the time on the clock when the cipher is complete");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[0])>1){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Cipher minutes too large");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[1])>60){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Cipher seconds too large");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        } else{
+            data = new DataLogger(sheetName.getText().toString() + ".xls");
+            data.resetAndNextRow(this);
+            data.addField(Integer.parseInt(teamNumber.getText().toString()));
+            data.addField(Integer.parseInt(matchNumber.getText().toString()));
+            if (allianceSwitch.isChecked()) {
+                data.addField("Blue");
+            } else {
+                data.addField("red");
+            }
+            data.addField(jewelSpinner.getSelectedItem().toString());
+            data.addField(autoGlyphsNumber);
+            data.addField(autoParked.isChecked());
+            data.addField(autoVuforia.isChecked());
+            if (autoSwitch.isChecked()) {
+                data.addField("Close Stone");
+            } else {
+                data.addField("Far Stone");
+            }
+            data.addField(teleopGlyphNumber);
+            data.addField(teleopRowNumber);
+            data.addField(teleopColumnNumber);
+            data.addField(cipherSeek.getProgress());
+            data.addField(1-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
+            data.addField(60-Integer.parseInt(cipherTime.getText().toString().split(":")[1]));
+            if (teleopSwitch.isChecked()) {
+                data.addField("Close Box");
+            } else {
+                data.addField("Far Box");
+            }
+            data.addField(relic1Spinner.getSelectedItem().toString());
+            data.addField(relic1Standing.isChecked());
+            data.addField(relic2Spinner.getSelectedItem().toString());
+            data.addField(relic2Standing.isChecked());
+            data.addField(balanced.isChecked());
+            data.addField(scoreNumber);
+            data.addField(FTAError.isChecked());
+            data.addField(additionalInfo.getText().toString());
+            data.addField(initials.getText().toString());
+            data.newLine();
+            data.saveDataLogger(this);
+            reset();
+
         }
-        reset();
     }
     public void subTeleopGlyphs(View view){
         if(teleopGlyphNumber>0){
@@ -320,7 +419,7 @@ public class MainActivity extends Activity
         scoreNumber += teleopGlyphNumber*2;
         scoreNumber += teleopRowNumber*10;
         scoreNumber += teleopColumnNumber*20;
-        scoreNumber += ciphersDoneNumber * 30;
+        scoreNumber += cipherSeek.getProgress()*30;
         if(autoParked.isChecked()){
             scoreNumber += 10;
         }
@@ -379,14 +478,10 @@ public class MainActivity extends Activity
         }else if(autoVuforia.isChecked()){
             scoreNumber += 30;
         }
-        if(jewel1Spinner.getSelectedItem().toString().equals("Right Color")){
+
+        if(jewelSpinner.getSelectedItem().toString().equals("Right Color")){
             scoreNumber+=30;
-        }else if(jewel1Spinner.getSelectedItem().toString().equals("Wrong Color")){
-            scoreNumber-=30;
-        }
-        if(jewel2Spinner.getSelectedItem().toString().equals("Right Color")){
-            scoreNumber+=30;
-        }else if(jewel2Spinner.getSelectedItem().toString().equals("Wrong Color")){
+        }else if(jewelSpinner.getSelectedItem().toString().equals("Wrong Color")){
             scoreNumber-=30;
         }
         if(relic1Spinner.getSelectedItem().toString().equals("Zone 1")){
@@ -405,11 +500,10 @@ public class MainActivity extends Activity
         }
         autoGlyphs.setText(autoGlyphsNumber+"");
         teleopGlyphs.setText(teleopGlyphNumber+"");
-        teleopCiphers.setText(ciphersDoneNumber+"");
         score.setText(scoreNumber + "");
         teleopRows.setText(teleopRowNumber+"");
         teleopColumns.setText(teleopColumnNumber+"");
-
+        cipherNumber.setText(cipherSeek.getProgress()+"");
     }
     public void balanceUpdate(View view){
         update();
@@ -442,12 +536,11 @@ public class MainActivity extends Activity
     public void reset(){
         autoGlyphsNumber = 0;
         teleopGlyphNumber = 0;
-        ciphersDoneNumber = 0;
         scoreNumber = 0;
         teleopColumnNumber = 0;
         teleopRowNumber = 0;
-        jewel1Spinner.setSelection(0);
-        jewel2Spinner.setSelection(0);
+        cipherSeek.setProgress(0);
+        jewelSpinner.setSelection(0);
         relic1Spinner.setSelection(0);
         relic2Spinner.setSelection(0);
         autoParked.setChecked(false);
@@ -455,106 +548,15 @@ public class MainActivity extends Activity
         relic1Standing.setChecked(false);
         relic2Standing.setChecked(false);
         balanced.setChecked(false);
+        autoSwitch.setChecked(false);
+        teleopSwitch.setChecked(false);
+        FTAError.setChecked(false);
+        allianceSwitch.setChecked(false);
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
-        cipherSeekBar.setProgress(0);
-        update();
-    }/*
-
-    public void submitData(View view){
-        i
-
-    }
-    public void reset(View view){
-        reset();
-    }
-    public void reset(){
-        autoParticles = 0;
-        autoParticlesMissed = 0;
-        teleopParticles = 0;
-        teleopParticlesMissed = 0;
-        teleopBeacons = 0;
-        teleopBeaconsMissed = 0;
-        teamNumber.setText("");
-        matchNumber.setText("");
-        FTAError.setChecked(false);
-        beacon1.setSelection(0);
-        beacon2.setSelection(0);
-        capBall.setSelection(0);
+        cipherTime.setText("");
         update();
     }
-    public void update(){
-        autoParticle.setText(autoParticles+"");
-
-        autoParticleMissed.setText(autoParticlesMissed+"");
-        teleopParticle.setText(teleopParticles+"");
-        teleopParticleMissed.setText(teleopParticlesMissed+"");
-        teleopBeacon.setText(teleopBeacons+"");
-        teleopBeaconMissed.setText(teleopBeaconsMissed+"");
-    }
-    public void addAutoParticle(View view){
-        autoParticles++;
-        update();
-    }
-    public void addAutoParticleMissed(View view){
-        autoParticlesMissed++;
-        update();
-    }
-    public void addTeleopParticle(View view){
-        teleopParticles++;
-        update();
-    }
-    public void addTeleopParticleMissed(View view){
-        teleopParticlesMissed++;
-        update();
-    }
-    public void addTeleopBeacon(View view){
-        teleopBeacons++;
-        update();
-    }
-    public void addTeleopBeaconMissed(View view){
-        teleopBeaconsMissed++;
-        update();
-    }
-    public void subAutoParticle(View view){
-        if(autoParticles>0){
-            autoParticles--;
-        }
-        update();
-    }
-    public void subAutoParticleMissed(View view){
-        if(autoParticlesMissed>0){
-            autoParticlesMissed--;
-        }
-        update();
-    }
-    public void subTeleopParticle(View view){
-        if(teleopParticles>0){
-            teleopParticles--;
-        }
-        update();
-    }
-    public void subTeleopParticleMissed(View view){
-        if(teleopParticlesMissed>0){
-            teleopParticlesMissed--;
-        }
-        update();
-    }
-    public void subTeleopBeacon(View view){
-        if(teleopBeacons>0){
-            teleopBeacons--;
-        }
-        update();
-    }
-    public void subTeleopBeaconMissed(View view){
-    if(teleopBeaconsMissed>0){
-        teleopBeaconsMissed--;
-    }
-    update();
-}*/
-
-
-
 
 }
