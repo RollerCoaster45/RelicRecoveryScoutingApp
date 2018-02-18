@@ -373,7 +373,7 @@ public class MainActivity extends Activity
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
             data.addField(cipherSeek.getProgress());
-            data.addField(2-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
+            data.addField(1-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
             data.addField(60-Integer.parseInt(cipherTime.getText().toString().split(":")[1]));
             if (teleopSwitch.isChecked()) {
                 data.addField("Close Box");
