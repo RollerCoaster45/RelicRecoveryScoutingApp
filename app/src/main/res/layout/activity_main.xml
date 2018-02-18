@@ -346,6 +346,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopRows"
                 android:onClick="addTeleopColumns"
                 />
+            <!--
             <CheckBox
                 android:id="@+id/CipherCheckBox"
                 android:layout_width="240dp"
@@ -357,6 +358,47 @@
                 app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
                 android:onClick="autoVuforiaClick"
                 />
+                -->
+            <TextView
+                android:id="@+id/CipherLabel"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Cipher"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toLeftOf="@id/TeleopColumnLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
+                />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/CipherSeekBar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:max="2"
+                android:onClick="autoVuforiaClick"
+                app:layout_constraintLeft_toRightOf="@id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns" />
+            <TextView
+                android:id="@+id/CipherNumber"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintLeft_toRightOf="@+id/CipherSeekBar"
+                app:layout_constraintTop_toBottomOf="@+id/AddTeleopColumns"
+                />
+
+
+            <EditText
+                android:id="@+id/CipherTime"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Time of Cipher"
+                android:inputType="time"
+                app:layout_constraintLeft_toLeftOf="@id/CipherLabel"
+                app:layout_constraintTop_toBottomOf="@id/CipherLabel" />
 
             <TextView
                 android:id="@+id/TeleopSwitch1Label"
@@ -364,8 +406,8 @@
                 android:layout_height="wrap_content"
                 android:text="Far Box"
                 android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="@id/CipherCheckBox"
-                app:layout_constraintTop_toBottomOf="@+id/CipherCheckBox"
+                app:layout_constraintLeft_toLeftOf="@id/CipherTime"
+                app:layout_constraintTop_toBottomOf="@id/CipherTime"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:textSize="15dp" />
@@ -535,7 +577,6 @@
                 android:onClick="resetButtonPressed"
                 app:layout_constraintTop_toBottomOf="@id/Initials"
                 />
-
         </android.support.constraint.ConstraintLayout>
     </HorizontalScrollView>
 </ScrollView>

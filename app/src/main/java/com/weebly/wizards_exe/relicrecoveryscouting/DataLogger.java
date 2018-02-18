@@ -161,6 +161,8 @@ public class DataLogger {
         this.addField("Teleop Rows");
         this.addField("Teleop Columns");
         this.addField("Teleop Cipher");
+        this.addField("Cipher Minutes");
+        this.addField("Cipher Seconds");
         this.addField("far box");
         this.addField("Relic 1");
         this.addField("Relic 1 Standing");

@@ -21,14 +21,16 @@ import org.apache.poi.hssf.util.HSSFColor;
 
 public class MainActivity extends Activity
 {
-    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label,allianceLabel, redAllianceLabel, blueAllianceLabel;
+    private TextView autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label,allianceLabel, redAllianceLabel, blueAllianceLabel, cipherLabel, cipherNumber;
     private Spinner jewelSpinner, relic1Spinner, relic2Spinner;
-    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher;
+    private CheckBox FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced;
     private Button addAutoGlyph, subAutoGlyph, addTeleopGlyph, subTeleopGlyph, addTeleopRow, subTeleopRow, addTeleopColumn, subTeleopColumn, submit, reset;
-    private EditText teamNumber, matchNumber, additionalInfo, sheetName, initials;
+    private SeekBar cipherSeek;
+    private EditText teamNumber, matchNumber, additionalInfo, sheetName, initials, cipherTime;
     private int teamNum, matchNum, autoGlyphsNumber, teleopGlyphNumber, scoreNumber, teleopRowNumber, teleopColumnNumber;
     private DataLogger data;
     private Switch autoSwitch, teleopSwitch, allianceSwitch;
+
 
 
     @Override
@@ -61,6 +63,8 @@ public class MainActivity extends Activity
         allianceLabel = (TextView) findViewById(R.id.AllianceLabel);
         redAllianceLabel = (TextView) findViewById(R.id.RedAllianceLabel);
         blueAllianceLabel = (TextView) findViewById(R.id.BlueAllianceLabel);
+        cipherLabel = (TextView) findViewById(R.id.CipherLabel);
+        cipherNumber = (TextView) findViewById(R.id.CipherNumber);
 
         addAutoGlyph = (Button) findViewById(R.id.AddAutoGlyphs);
         subAutoGlyph = (Button) findViewById(R.id.SubAutoGlyphs);
@@ -118,12 +122,29 @@ public class MainActivity extends Activity
 
             }
         });
+        cipherSeek = (SeekBar) findViewById(R.id.CipherSeekBar);
+        cipherSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                update();
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         teamNumber = (EditText)findViewById(R.id.teamNumber);
         matchNumber = (EditText)findViewById(R.id.matchNumber);
         additionalInfo = (EditText) findViewById(R.id.AdditionalComments);
         sheetName = (EditText) findViewById(R.id.sheetName);
         initials = (EditText) findViewById(R.id.Initials);
+        cipherTime = (EditText) findViewById(R.id.CipherTime);
 
         // Apply the adapter to the spinner
         FTAError = (CheckBox) findViewById(R.id.FTAError);
@@ -132,20 +153,21 @@ public class MainActivity extends Activity
         relic2Standing = (CheckBox) findViewById(R.id.Relic2CheckBox);
         autoVuforia = (CheckBox) findViewById(R.id.AutoVuforiaGlyphCheckbox);
         balanced = (CheckBox) findViewById(R.id.BalancedPark);
-        cipher = (CheckBox) findViewById(R.id.CipherCheckBox);
+        //cipher = (CheckBox) findViewById(R.id.CipherCheckBox);
 
         autoSwitch = (Switch) findViewById(R.id.AutoSwitch);
         teleopSwitch = (Switch) findViewById(R.id.TeleopSwitch);
         allianceSwitch = (Switch) findViewById(R.id.AllianceSwitch);
 
+
         int width = (getResources().getDisplayMetrics().widthPixels)-32;
 
         ViewGroup.LayoutParams layout;
-        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch};
-        View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label};
-        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, cipher, allianceLabel, sheetName, initials};
-        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel};
-        CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced, cipher};
+        View[] quarterWidgets = {autoGlyphsLabel, addAutoGlyph, subAutoGlyph, autoGlyphs, teleopGlyphsLabel, teleopGlyphs, addTeleopGlyph, subTeleopGlyph, addTeleopColumn, addTeleopRow, subTeleopColumn, subTeleopRow, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch, teleopSwitch1Label, teleopSwitch, redAllianceLabel, blueAllianceLabel, allianceSwitch, cipherLabel, cipherNumber};
+        View[] halfWidgets = {scoreLabel, score, relic1Label, relic1Spinner, relic1Standing, relic2Label, relic2Spinner, relic2Standing, submit, reset, autoSwitch2Label, teleopSwitch2Label, cipherSeek};
+        View[] fullWidgets = {autonomousLabel, FTAError, teamNumber, matchNumber, teleopLabel, autoParked, autoVuforia, endGameLabel, additionalInfo, balanced, jewelLabel, jewelSpinner, allianceLabel, sheetName, initials, cipherTime};
+        TextView[] textViews = {autoGlyphs, teleopGlyphs, score, autonomousLabel, jewelLabel, autoGlyphsLabel, teleopLabel, teleopGlyphsLabel, endGameLabel, relic1Label, relic2Label, scoreLabel, teleopRowLabel, teleopRows, teleopColumnLabel, teleopColumns, autoSwitch1Label, autoSwitch2Label, teleopSwitch1Label, teleopSwitch2Label, redAllianceLabel, blueAllianceLabel, allianceLabel, cipherNumber, cipherLabel};
+        CheckBox[] checkBoxes = {FTAError, autoParked, autoVuforia, relic1Standing, relic2Standing, balanced};
         for(View widget:quarterWidgets){
             layout = widget.getLayoutParams();
             layout.width = width/4;
@@ -172,6 +194,7 @@ public class MainActivity extends Activity
         }
         reset();
     }
+
     public void addAutoGlyph(View view){
         if(autoGlyphsNumber<24){
             autoGlyphsNumber++;
@@ -236,32 +259,125 @@ public class MainActivity extends Activity
         alert11.show();
     }
     public void submitData(){
-        if(!teamNumber.getText().toString().trim().equals("")&&!matchNumber.getText().toString().trim().equals("")&&!sheetName.getText().toString().trim().equals("")){
-            data = new DataLogger(sheetName.getText().toString()+".xls");
+        if(teamNumber.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Team Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(matchNumber.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No match Number");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(sheetName.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("No Sheet Name");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(cipherSeek.getProgress()!=0&&cipherTime.getText().toString().trim().equals("")||cipherSeek.getProgress()==0&&!cipherTime.getText().toString().trim().equals("")){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Can't have a cipher without time or time without cipher");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(cipherTime.getText().toString().trim().split(":").length!=2){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Incorrect formatting for cipher time, should be minutes:seconds of the time on the clock when the cipher is complete");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[0])>1){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Cipher minutes too large");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[1])>60){
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("Cipher seconds too large");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Cancel",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        } else{
+            data = new DataLogger(sheetName.getText().toString() + ".xls");
             data.resetAndNextRow(this);
             data.addField(Integer.parseInt(teamNumber.getText().toString()));
             data.addField(Integer.parseInt(matchNumber.getText().toString()));
-            if(allianceSwitch.isChecked()){
+            if (allianceSwitch.isChecked()) {
                 data.addField("Blue");
-            }else{
+            } else {
                 data.addField("red");
             }
             data.addField(jewelSpinner.getSelectedItem().toString());
             data.addField(autoGlyphsNumber);
             data.addField(autoParked.isChecked());
             data.addField(autoVuforia.isChecked());
-            if(autoSwitch.isChecked()){
+            if (autoSwitch.isChecked()) {
                 data.addField("Close Stone");
-            }else{
+            } else {
                 data.addField("Far Stone");
             }
             data.addField(teleopGlyphNumber);
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
-            data.addField(cipher.isChecked());
-            if(teleopSwitch.isChecked()){
+            data.addField(cipherSeek.getProgress());
+            data.addField(2-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
+            data.addField(60-Integer.parseInt(cipherTime.getText().toString().split(":")[1]));
+            if (teleopSwitch.isChecked()) {
                 data.addField("Close Box");
-            }else{
+            } else {
                 data.addField("Far Box");
             }
             data.addField(relic1Spinner.getSelectedItem().toString());
@@ -277,19 +393,6 @@ public class MainActivity extends Activity
             data.saveDataLogger(this);
             reset();
 
-        }else{
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("No Team Number, Match Number, or Sheet Name");
-            builder1.setCancelable(true);
-            builder1.setPositiveButton(
-                    "Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
         }
     }
     public void subTeleopGlyphs(View view){
@@ -316,9 +419,7 @@ public class MainActivity extends Activity
         scoreNumber += teleopGlyphNumber*2;
         scoreNumber += teleopRowNumber*10;
         scoreNumber += teleopColumnNumber*20;
-        if(cipher.isChecked()){
-            scoreNumber+=30;
-        }
+        scoreNumber += cipherSeek.getProgress()*30;
         if(autoParked.isChecked()){
             scoreNumber += 10;
         }
@@ -377,6 +478,7 @@ public class MainActivity extends Activity
         }else if(autoVuforia.isChecked()){
             scoreNumber += 30;
         }
+
         if(jewelSpinner.getSelectedItem().toString().equals("Right Color")){
             scoreNumber+=30;
         }else if(jewelSpinner.getSelectedItem().toString().equals("Wrong Color")){
@@ -401,7 +503,7 @@ public class MainActivity extends Activity
         score.setText(scoreNumber + "");
         teleopRows.setText(teleopRowNumber+"");
         teleopColumns.setText(teleopColumnNumber+"");
-
+        cipherNumber.setText(cipherSeek.getProgress()+"");
     }
     public void balanceUpdate(View view){
         update();
@@ -437,6 +539,7 @@ public class MainActivity extends Activity
         scoreNumber = 0;
         teleopColumnNumber = 0;
         teleopRowNumber = 0;
+        cipherSeek.setProgress(0);
         jewelSpinner.setSelection(0);
         relic1Spinner.setSelection(0);
         relic2Spinner.setSelection(0);
@@ -445,7 +548,6 @@ public class MainActivity extends Activity
         relic1Standing.setChecked(false);
         relic2Standing.setChecked(false);
         balanced.setChecked(false);
-        cipher.setChecked(false);
         autoSwitch.setChecked(false);
         teleopSwitch.setChecked(false);
         FTAError.setChecked(false);
@@ -453,6 +555,7 @@ public class MainActivity extends Activity
         teamNumber.setText("");
         matchNumber.setText("");
         additionalInfo.setText("");
+        cipherTime.setText("");
         update();
     }
 
