@@ -298,7 +298,7 @@ public class MainActivity extends Activity
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
-        }else if(cipherSeek.getProgress()!=0&&cipherTime.getText().toString().trim().equals("")||cipherSeek.getProgress()==0&&!cipherTime.getText().toString().trim().equals("")){
+        }else if((cipherSeek.getProgress()!=0&&cipherTime.getText().toString().trim().equals(""))||(cipherSeek.getProgress()==0&&!cipherTime.getText().toString().trim().equals(""))){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("Can't have a cipher without time or time without cipher");
             builder1.setCancelable(true);
@@ -311,7 +311,7 @@ public class MainActivity extends Activity
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
-        }else if(cipherTime.getText().toString().trim().split(":").length!=2){
+        }else if(!(cipherSeek.getProgress()==0)&&cipherTime.getText().toString().trim().split(":").length!=2){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("Incorrect formatting for cipher time, should be minutes:seconds of the time on the clock when the cipher is complete");
             builder1.setCancelable(true);
@@ -324,7 +324,7 @@ public class MainActivity extends Activity
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
-        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[0])>1){
+        }else if(!(cipherSeek.getProgress()==0)&&Integer.parseInt(cipherTime.getText().toString().trim().split(":")[0])>1){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("Cipher minutes too large");
             builder1.setCancelable(true);
@@ -337,7 +337,7 @@ public class MainActivity extends Activity
                     });
             AlertDialog alert11 = builder1.create();
             alert11.show();
-        }else if(Integer.parseInt(cipherTime.getText().toString().trim().split(":")[1])>60){
+        }else if(!(cipherSeek.getProgress()==0)&&Integer.parseInt(cipherTime.getText().toString().trim().split(":")[1])>60){
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
             builder1.setMessage("Cipher seconds too large");
             builder1.setCancelable(true);
@@ -373,8 +373,13 @@ public class MainActivity extends Activity
             data.addField(teleopRowNumber);
             data.addField(teleopColumnNumber);
             data.addField(cipherSeek.getProgress());
-            data.addField(1-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
-            data.addField(60-Integer.parseInt(cipherTime.getText().toString().split(":")[1]));
+            if(cipherSeek.getProgress()==0){
+                data.addField(0);
+                data.addField(0);
+            }else{
+                data.addField(1-Integer.parseInt(cipherTime.getText().toString().split(":")[0]));
+                data.addField(60-Integer.parseInt(cipherTime.getText().toString().split(":")[1]));
+            }
             if (teleopSwitch.isChecked()) {
                 data.addField("Close Box");
             } else {
